@@ -42,6 +42,8 @@
 <title>Trujillo's Cleaning Services | Pressure Washing, Window Cleaning, Home Cleaning &amp; Car Detailing — Savannah, GA</title>
 <meta name="description" content="Trujillo's Cleaning Services brings over 20 years of experience to Savannah, GA and surrounding areas. Pressure washing, window cleaning, interior home cleaning, and car detailing from one trusted local company. Call (912) 659-3049.">
 <meta name="theme-color" content="#0E2440">
+<link rel="icon" type="image/png" href="web/logo.png">
+<link rel="apple-touch-icon" href="web/logo.png">
 <link rel="canonical" href="https://trujilloscleaning.com/">
 <!-- ============================================================
   LINK PREVIEW (iMessage, Facebook, WhatsApp, Instagram DMs…)
@@ -214,6 +216,9 @@ h3{font-size:clamp(1.25rem,2vw,1.5rem);font-weight:700}
   font-family:var(--font-display);font-weight:700;font-size:1.05rem;letter-spacing:0;
   box-shadow:var(--shadow-sm);
 }
+.brand-logo{height:48px;width:auto;flex:none}
+.footer .brand-logo{height:56px}
+.ph-logo{width:min(160px,48%);height:auto;filter:drop-shadow(0 6px 18px rgba(0,0,0,.35))}
 .brand-text{display:flex;flex-direction:column;line-height:1.15}
 .brand-name{font-family:var(--font-display);font-weight:700;font-size:1.02rem;color:var(--navy-900);letter-spacing:-.01em}
 .brand-sub{font-size:.68rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--slate)}
@@ -481,6 +486,83 @@ a.meta-value:hover{color:var(--blue-600)}
 .mobile-bar.show{transform:translateY(0);visibility:visible;transition:transform .3s ease,visibility 0s linear 0s}
 .mobile-bar .btn{flex:1;padding:.9rem .5rem}
 
+/* ============ SERVICE REQUEST MODAL ============ */
+.sr-overlay{
+  position:fixed;inset:0;z-index:120;
+  background:rgba(8,22,39,.55);
+  backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);
+  display:flex;align-items:center;justify-content:center;
+  padding:1rem;
+}
+.sr-overlay[hidden]{display:none}
+.sr-modal{
+  background:#fff;border-radius:var(--radius);box-shadow:var(--shadow-md);
+  width:min(560px,100%);max-height:calc(100vh - 2rem);max-height:calc(100dvh - 2rem);overflow-y:auto;
+  padding:clamp(1.6rem,4vw,2.3rem);position:relative;
+}
+.sr-close{
+  position:absolute;top:.9rem;right:.9rem;width:44px;height:44px;border-radius:11px;
+  display:grid;place-items:center;color:var(--slate);background:var(--blue-50);
+  transition:background-color .15s ease,color .15s ease;
+}
+.sr-close:hover{background:var(--blue-100);color:var(--navy-900)}
+.sr-modal h3{font-size:1.45rem;margin-bottom:.15rem;padding-right:2.6rem}
+.sr-sub{color:var(--slate);font-size:.95rem;margin-bottom:1.4rem}
+.sr-field{margin-bottom:1.15rem}
+.sr-field>label{display:block;font-weight:600;font-size:.92rem;color:var(--navy-900);margin-bottom:.45rem}
+.sr-fieldset{border:none;padding:0;margin:0 0 1.15rem}
+.sr-fieldset legend{font-weight:600;font-size:.92rem;color:var(--navy-900);margin-bottom:.45rem;padding:0}
+.sr-input,.sr-select{
+  width:100%;font:inherit;font-size:1rem;color:var(--ink);background:#fff;
+  border:1.5px solid var(--line);border-radius:10px;padding:.8rem .95rem;
+  transition:border-color .15s ease,box-shadow .15s ease;
+}
+.sr-input:focus,.sr-select:focus{outline:none;border-color:var(--blue-500);box-shadow:0 0 0 3px rgba(43,111,190,.15)}
+.sr-input.invalid,.sr-select.invalid{border-color:#C93F35}
+.sr-fieldset.invalid legend{color:#9C2B22}
+.sr-select{
+  appearance:none;-webkit-appearance:none;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%2354636F' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right .95rem center;padding-right:2.7rem;
+}
+.sr-choices{display:flex;flex-wrap:wrap;gap:.55rem}
+.sr-chip{position:relative;cursor:pointer}
+.sr-chip input{position:absolute;opacity:0;pointer-events:none}
+.sr-chip span{
+  display:inline-flex;align-items:center;padding:.62rem 1.05rem;
+  border:1.5px solid var(--line);border-radius:99px;
+  font-size:.92rem;font-weight:500;color:var(--slate);background:#fff;
+  transition:background-color .15s ease,border-color .15s ease,color .15s ease;
+}
+.sr-chip:hover span{border-color:var(--blue-500);color:var(--blue-700)}
+.sr-chip input:checked+span{background:var(--blue-600);border-color:var(--blue-600);color:#fff}
+.sr-chip input:focus-visible+span{outline:3px solid var(--blue-500);outline-offset:2px}
+.sr-note{
+  display:flex;gap:.6rem;align-items:flex-start;
+  background:var(--blue-50);border:1px solid #D8E6F4;border-radius:10px;
+  padding:.85rem 1rem;font-size:.9rem;color:var(--blue-700);margin-bottom:1.15rem;line-height:1.5;
+}
+.sr-note svg{flex:none;margin-top:.15rem}
+.sr-error{
+  display:none;background:#FDF0EF;border:1px solid #F2C7C3;color:#9C2B22;
+  border-radius:10px;padding:.8rem 1rem;font-size:.9rem;margin-bottom:1rem;
+}
+.sr-error.show{display:block}
+.sr-submit{width:100%}
+.sr-submit[disabled]{opacity:.65;cursor:not-allowed;transform:none!important}
+.sr-success{text-align:center;padding:1.2rem 0 .4rem}
+.sr-success .ok{
+  width:64px;height:64px;border-radius:50%;background:var(--blue-100);
+  display:grid;place-items:center;margin:0 auto 1.1rem;color:var(--blue-600);
+}
+.sr-success h3{padding-right:0;margin-bottom:.5rem}
+.sr-success p{color:var(--slate);font-size:.95rem;max-width:40ch;margin:0 auto 1.4rem}
+body.sr-open{overflow:hidden}
+@media (max-width:560px){
+  .sr-overlay{padding:.6rem;align-items:flex-end}
+  .sr-modal{max-height:calc(100vh - 1.2rem);max-height:calc(100dvh - 1.2rem)}
+}
+
 /* ============ REVEAL ANIMATIONS ============ */
 .reveal{opacity:0;transform:translateY(22px);transition:opacity .65s cubic-bezier(.2,.6,.25,1),transform .65s cubic-bezier(.2,.6,.25,1)}
 .reveal.in{opacity:1;transform:none}
@@ -549,7 +631,7 @@ a.meta-value:hover{color:var(--blue-600)}
 <header class="site-nav" id="siteNav">
   <div class="container nav-inner">
     <a class="brand" href="#top" aria-label="Trujillo's Cleaning Services — back to top">
-      <span class="brand-mark" aria-hidden="true">T</span>
+      <img class="brand-logo" src="web/logo.png" alt="" aria-hidden="true">
       <span class="brand-text">
         <span class="brand-name">Trujillo's</span>
         <span class="brand-sub">Cleaning Services</span>
@@ -586,6 +668,7 @@ a.meta-value:hover{color:var(--blue-600)}
   </nav>
   <div class="menu-ctas">
     <a class="btn btn-primary js-quote" href="sms:+19126593049?&amp;body=Hey%2C%20I%20need%20a%20quote%20for%20your%20services.">Get a Quote</a>
+    <button class="btn btn-ghost js-request" type="button">Request Service</button>
     <a class="btn btn-ghost" href="tel:+19126593049" data-phone="general">
       Call <span data-phone-display="general">(912) 659-3049</span>
     </a>
@@ -610,6 +693,10 @@ a.meta-value:hover{color:var(--blue-600)}
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
             Call <span data-phone-display="general">(912) 659-3049</span>
           </a>
+          <button class="btn btn-ghost js-request" type="button">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1"/><path d="m9 14 2 2 4-4"/></svg>
+            Request Service
+          </button>
         </div>
         <ul class="hero-points">
           <li>
@@ -695,7 +782,7 @@ a.meta-value:hover{color:var(--blue-600)}
             <!-- PHOTO SLOT: window-cleaning -->
             <figure class="media" data-photo="window-cleaning">
               <div class="ph-inner" aria-hidden="true">
-            <span class="ph-mark">T</span>
+            <img class="ph-logo" src="web/logo.png" alt="">
             <span class="ph-word">Trujillo's Cleaning Services</span>
           </div>
             </figure>
@@ -719,7 +806,7 @@ a.meta-value:hover{color:var(--blue-600)}
             <!-- PHOTO SLOT: interior-cleaning -->
             <figure class="media" data-photo="interior-cleaning">
               <div class="ph-inner" aria-hidden="true">
-            <span class="ph-mark">T</span>
+            <img class="ph-logo" src="web/logo.png" alt="">
             <span class="ph-word">Trujillo's Cleaning Services</span>
           </div>
             </figure>
@@ -936,7 +1023,7 @@ a.meta-value:hover{color:var(--blue-600)}
     <div class="footer-grid">
       <div>
         <a class="brand" href="#top" aria-label="Trujillo's Cleaning Services — back to top">
-          <span class="brand-mark" aria-hidden="true">T</span>
+          <img class="brand-logo" src="web/logo.png" alt="" aria-hidden="true">
           <span class="brand-text">
             <span class="brand-name">Trujillo's</span>
             <span class="brand-sub">Cleaning Services</span>
@@ -995,6 +1082,96 @@ a.meta-value:hover{color:var(--blue-600)}
   <a class="btn btn-primary js-quote" href="sms:+19126593049?&amp;body=Hey%2C%20I%20need%20a%20quote%20for%20your%20services.">Get a Quote</a>
 </div>
 
+<!-- ================= SERVICE REQUEST MODAL ================= -->
+<div class="sr-overlay" id="srOverlay" hidden>
+  <div class="sr-modal" role="dialog" aria-modal="true" aria-labelledby="srTitle">
+    <button class="sr-close" id="srCloseBtn" type="button" aria-label="Close request form">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>
+    </button>
+
+    <div id="srFormWrap">
+      <h3 id="srTitle">Request Service</h3>
+      <p class="sr-sub">Tell us what you need and we'll take it from there.</p>
+
+      <form id="srForm" novalidate>
+        <div class="sr-field">
+          <label for="srService">What service are you interested in?</label>
+          <select class="sr-select" id="srService" name="service" required>
+            <option value="" disabled selected>Select a service…</option>
+            <option value="Car Detailing">Car Detailing</option>
+            <option value="Interior Home Cleaning">Interior Home Cleaning</option>
+            <option value="Pressure Washing">Pressure Washing</option>
+            <option value="Window Cleaning">Window Cleaning</option>
+          </select>
+        </div>
+
+        <!-- Car Detailing questions (shown only for Car Detailing) -->
+        <div id="srCarFields" hidden>
+          <div class="sr-field">
+            <label for="srVehicle">What kind of vehicle do you have?</label>
+            <input class="sr-input" id="srVehicle" name="vehicle" type="text" placeholder="e.g. 2025 Ford F-150" autocomplete="off">
+          </div>
+          <fieldset class="sr-fieldset" id="srPetHairSet">
+            <legend>Does your vehicle have pet hair?</legend>
+            <div class="sr-choices">
+              <label class="sr-chip"><input type="radio" name="petHair" value="Yes"><span>Yes</span></label>
+              <label class="sr-chip"><input type="radio" name="petHair" value="No"><span>No</span></label>
+            </div>
+          </fieldset>
+          <fieldset class="sr-fieldset" id="srStainsSet">
+            <legend>Does your vehicle have stains that need attention?</legend>
+            <div class="sr-choices">
+              <label class="sr-chip"><input type="radio" name="stains" value="Yes"><span>Yes</span></label>
+              <label class="sr-chip"><input type="radio" name="stains" value="No"><span>No</span></label>
+            </div>
+          </fieldset>
+          <fieldset class="sr-fieldset">
+            <legend>Are you interested in any additional services?</legend>
+            <div class="sr-choices">
+              <label class="sr-chip"><input type="checkbox" name="addons" value="Seat Shampooing"><span>Seat Shampooing</span></label>
+              <label class="sr-chip"><input type="checkbox" name="addons" value="Carpet Shampooing"><span>Carpet Shampooing</span></label>
+              <label class="sr-chip"><input type="checkbox" name="addons" value="Headliner Shampooing"><span>Headliner Shampooing</span></label>
+              <label class="sr-chip"><input type="checkbox" name="addons" value="Headlight Restoration"><span>Headlight Restoration</span></label>
+              <label class="sr-chip"><input type="checkbox" name="addons" value="None"><span>None</span></label>
+            </div>
+          </fieldset>
+        </div>
+
+        <!-- Contact info (shown once a service is selected) -->
+        <div id="srCommon" hidden>
+          <div class="sr-note" id="srNote" hidden>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            <span>We'll give you a call to schedule a time for us to come out and provide you with a free quote.</span>
+          </div>
+          <div class="sr-field">
+            <label for="srName">Name</label>
+            <input class="sr-input" id="srName" name="name" type="text" autocomplete="name" required>
+          </div>
+          <div class="sr-field">
+            <label for="srPhone">Phone Number</label>
+            <input class="sr-input" id="srPhone" name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="(912) 555-1234" required>
+          </div>
+          <div class="sr-field">
+            <label for="srAddress" id="srAddressLabel">Service Address</label>
+            <input class="sr-input" id="srAddress" name="address" type="text" autocomplete="street-address" required>
+          </div>
+          <div class="sr-error" id="srError" role="alert"></div>
+          <button class="btn btn-primary sr-submit" id="srSubmit" type="submit">Submit Request</button>
+        </div>
+      </form>
+    </div>
+
+    <div class="sr-success" id="srSuccess" hidden>
+      <div class="ok" aria-hidden="true">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+      </div>
+      <h3 id="srSuccessTitle">Request received!</h3>
+      <p id="srSuccessText"></p>
+      <button class="btn btn-primary" id="srDone" type="button">Done</button>
+    </div>
+  </div>
+</div>
+
 <script>
 /* ==========================================================================
    SITE_CONFIG — THE ONE PLACE TO UPDATE BUSINESS INFO
@@ -1014,6 +1191,15 @@ const SITE_CONFIG = {
     mode: "sms",                                    /* "sms" or "url" */
     smsMessage: "Hey, I need a quote for your services.",   /* ← pre-typed text */
     bookingUrl: ""                                  /* ← PASTE BOOKING URL HERE (only used when mode is "url") */
+  },
+  serviceRequest: {
+    /* Where "Request Service" form submissions go.
+       - Leave endpoint empty → the form opens the customer's texting app
+         with all their answers pre-filled to the right phone line
+         (same delivery method as the Get a Quote buttons).
+       - Paste a form endpoint URL (e.g. Formspree/Basin) → submissions
+         are POSTed there as JSON instead, with no texting step. */
+    endpoint: ""
   },
   phones: {
     general:  { display: "(912) 659-3049", tel: "+19126593049" },   /* Pressure washing, windows, detailing, general */
@@ -1152,6 +1338,225 @@ const SITE_CONFIG = {
   window.addEventListener("scroll", updateBar, { passive: true });
   window.addEventListener("resize", updateBar);
   updateBar();
+
+  /* ---------- Service Request modal ---------- */
+  var srOverlay = document.getElementById("srOverlay");
+  if (srOverlay) {
+    var srForm = document.getElementById("srForm");
+    var srFormWrap = document.getElementById("srFormWrap");
+    var srSuccess = document.getElementById("srSuccess");
+    var srSuccessTitle = document.getElementById("srSuccessTitle");
+    var srSuccessText = document.getElementById("srSuccessText");
+    var srService = document.getElementById("srService");
+    var srCarFields = document.getElementById("srCarFields");
+    var srCommon = document.getElementById("srCommon");
+    var srNote = document.getElementById("srNote");
+    var srAddressLabel = document.getElementById("srAddressLabel");
+    var srVehicle = document.getElementById("srVehicle");
+    var srName = document.getElementById("srName");
+    var srPhone = document.getElementById("srPhone");
+    var srAddress = document.getElementById("srAddress");
+    var srSubmit = document.getElementById("srSubmit");
+    var srError = document.getElementById("srError");
+    var srPetHairSet = document.getElementById("srPetHairSet");
+    var srStainsSet = document.getElementById("srStainsSet");
+    var srLastFocus = null;
+    var srSubmitting = false;
+    var srShowedSuccess = false;
+
+    function srIsCar() { return srService.value === "Car Detailing"; }
+
+    function srClearInvalid() {
+      srError.classList.remove("show");
+      [srService, srVehicle, srName, srPhone, srAddress].forEach(function (el) { el.classList.remove("invalid"); });
+      [srPetHairSet, srStainsSet].forEach(function (el) { el.classList.remove("invalid"); });
+    }
+
+    function srResetAll() {
+      srForm.reset();
+      srCarFields.hidden = true;
+      srCommon.hidden = true;
+      srNote.hidden = true;
+      srClearInvalid();
+      srSubmit.disabled = false;
+      srSubmit.textContent = "Submit Request";
+      srSuccess.hidden = true;
+      srFormWrap.hidden = false;
+      srShowedSuccess = false;
+    }
+
+    function srOpen() {
+      srLastFocus = document.activeElement;
+      srOverlay.hidden = false;
+      document.body.classList.add("sr-open");
+      srService.focus();
+    }
+
+    function srClose() {
+      srOverlay.hidden = true;
+      document.body.classList.remove("sr-open");
+      if (srShowedSuccess) srResetAll();
+      if (srLastFocus && srLastFocus.focus) srLastFocus.focus();
+    }
+
+    document.querySelectorAll(".js-request").forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        srOpen();
+        if (menu.classList.contains("open")) setMenu(false);
+      });
+    });
+    document.getElementById("srCloseBtn").addEventListener("click", srClose);
+    document.getElementById("srDone").addEventListener("click", srClose);
+    srOverlay.addEventListener("click", function (e) { if (e.target === srOverlay) srClose(); });
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape" && !srOverlay.hidden) srClose();
+    });
+
+    /* Dynamic fields per service */
+    srService.addEventListener("change", function () {
+      var isCar = srIsCar();
+      srCarFields.hidden = !isCar;
+      srCommon.hidden = !srService.value;
+      srNote.hidden = isCar;
+      srAddressLabel.textContent = isCar ? "Service Address" : "Property Address";
+      srClearInvalid();
+      if (!isCar) {
+        /* leaving Car Detailing: clear its answers so stale data is never submitted */
+        srVehicle.value = "";
+        srForm.querySelectorAll('input[name="petHair"],input[name="stains"],input[name="addons"]').forEach(function (i) { i.checked = false; });
+      }
+    });
+
+    /* "None" is mutually exclusive with the real add-ons */
+    var srAddons = Array.prototype.slice.call(srForm.querySelectorAll('input[name="addons"]'));
+    var srNone = srForm.querySelector('input[name="addons"][value="None"]');
+    srAddons.forEach(function (cb) {
+      cb.addEventListener("change", function () {
+        if (cb === srNone && cb.checked) {
+          srAddons.forEach(function (o) { if (o !== srNone) o.checked = false; });
+        } else if (cb.checked && srNone.checked) {
+          srNone.checked = false;
+        }
+      });
+    });
+
+    function srRadioValue(name) {
+      var el = srForm.querySelector('input[name="' + name + '"]:checked');
+      return el ? el.value : "";
+    }
+
+    function srValidate() {
+      srClearInvalid();
+      var bad = [];
+      if (!srService.value) { srService.classList.add("invalid"); bad.push(srService); }
+      if (srIsCar()) {
+        if (!srVehicle.value.trim()) { srVehicle.classList.add("invalid"); bad.push(srVehicle); }
+        if (!srRadioValue("petHair")) { srPetHairSet.classList.add("invalid"); bad.push(srPetHairSet.querySelector("input")); }
+        if (!srRadioValue("stains")) { srStainsSet.classList.add("invalid"); bad.push(srStainsSet.querySelector("input")); }
+      }
+      if (!srName.value.trim()) { srName.classList.add("invalid"); bad.push(srName); }
+      var digits = srPhone.value.replace(/\D/g, "");
+      if (digits.length < 10 || digits.length > 15) { srPhone.classList.add("invalid"); bad.push(srPhone); }
+      if (!srAddress.value.trim()) { srAddress.classList.add("invalid"); bad.push(srAddress); }
+      if (bad.length) {
+        srError.textContent = "Please complete the highlighted fields" + (srPhone.classList.contains("invalid") ? " (phone number should have at least 10 digits)" : "") + ".";
+        srError.classList.add("show");
+        if (bad[0] && bad[0].focus) bad[0].focus();
+        return false;
+      }
+      return true;
+    }
+
+    function srCollect() {
+      var data = {
+        service: srService.value,
+        name: srName.value.trim(),
+        phone: srPhone.value.trim(),
+        address: srAddress.value.trim(),
+        submittedAt: new Date().toISOString(),
+        page: location.href
+      };
+      if (srIsCar()) {
+        data.vehicle = srVehicle.value.trim();
+        data.petHair = srRadioValue("petHair");
+        data.stains = srRadioValue("stains");
+        data.additionalServices = srAddons.filter(function (c) { return c.checked; }).map(function (c) { return c.value; });
+      }
+      return data;
+    }
+
+    function srShowSuccess(data, smsHandoff) {
+      var isCar = data.service === "Car Detailing";
+      if (smsHandoff) {
+        srSuccessTitle.textContent = "One last step!";
+        srSuccessText.textContent = "We opened your messaging app with your request details filled in — just press Send and it comes straight to our phone." +
+          (isCar ? "" : " Once we get it, we'll call you to schedule a time to come out and provide your free quote.");
+      } else {
+        srSuccessTitle.textContent = "Request received!";
+        srSuccessText.textContent = isCar
+          ? "Thank you! We received your service request. Our team will contact you shortly."
+          : "Thank you! We received your request. Our team will call you to schedule a time to come out and provide your free quote.";
+      }
+      srFormWrap.hidden = true;
+      srSuccess.hidden = false;
+      srShowedSuccess = true;
+      document.getElementById("srDone").focus();
+    }
+
+    function srBuildSms(data) {
+      var lines = ["Service Request — " + data.service];
+      if (data.service === "Car Detailing") {
+        lines.push("Vehicle: " + data.vehicle);
+        lines.push("Pet hair: " + data.petHair);
+        lines.push("Stains: " + data.stains);
+        lines.push("Additional services: " + (data.additionalServices.length ? data.additionalServices.join(", ") : "None selected"));
+      }
+      lines.push("Name: " + data.name);
+      lines.push("Phone: " + data.phone);
+      lines.push("Address: " + data.address);
+      return lines.join("\n");
+    }
+
+    srForm.addEventListener("submit", function (e) {
+      e.preventDefault();
+      if (srSubmitting) return;
+      if (!srValidate()) return;
+      var data = srCollect();
+      var endpoint = (SITE_CONFIG.serviceRequest || {}).endpoint;
+      srSubmitting = true;
+      srSubmit.disabled = true;
+      srSubmit.textContent = "Sending…";
+      srError.classList.remove("show");
+
+      if (endpoint) {
+        fetch(endpoint, {
+          method: "POST",
+          headers: { "Content-Type": "application/json", "Accept": "application/json" },
+          body: JSON.stringify(data)
+        }).then(function (res) {
+          if (!res.ok) throw new Error("HTTP " + res.status);
+          srShowSuccess(data, false);
+        }).catch(function () {
+          srError.textContent = "Something went wrong sending your request. Please try again, or call us at " + SITE_CONFIG.phones.general.display + ".";
+          srError.classList.add("show");
+        }).finally(function () {
+          srSubmitting = false;
+          srSubmit.disabled = false;
+          srSubmit.textContent = "Submit Request";
+        });
+      } else {
+        /* No endpoint configured — hand off via text message, the same
+           delivery channel the site's quote buttons already use. */
+        var phoneKey = data.service === "Interior Home Cleaning" ? "interior" : "general";
+        var href = "sms:" + SITE_CONFIG.phones[phoneKey].tel + "?&body=" + encodeURIComponent(srBuildSms(data));
+        srShowSuccess(data, true);
+        srSubmitting = false;
+        srSubmit.disabled = false;
+        srSubmit.textContent = "Submit Request";
+        window.location.href = href;
+      }
+    });
+  }
 
   /* ---------- Footer year ---------- */
   document.getElementById("year").textContent = String(new Date().getFullYear());
