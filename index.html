@@ -237,11 +237,11 @@ h3{font-size:clamp(1.25rem,2vw,1.5rem);font-weight:700}
 .nav-call:hover{color:var(--blue-600)}
 .nav-call svg{color:var(--blue-600)}
 
-.nav-toggle{display:none;width:44px;height:44px;border-radius:10px;place-items:center;flex:none}
-.nav-toggle span{display:block;width:22px;height:2px;background:var(--navy-900);border-radius:2px;transition:transform .25s ease,opacity .2s ease;margin:2.5px 0}
-.nav-toggle[aria-expanded="true"] span:nth-child(1){transform:translateY(7px) rotate(45deg)}
-.nav-toggle[aria-expanded="true"] span:nth-child(2){opacity:0}
-.nav-toggle[aria-expanded="true"] span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+.nav-toggle{display:none;width:44px;height:44px;border-radius:10px;place-items:center;flex:none;color:var(--navy-900);background:var(--blue-50)}
+.nav-toggle svg{grid-area:1/1}
+.nav-toggle .icon-close{display:none}
+.nav-toggle[aria-expanded="true"] .icon-menu{display:none}
+.nav-toggle[aria-expanded="true"] .icon-close{display:block}
 
 .mobile-menu{
   display:none;position:fixed;top:var(--nav-h);left:0;right:0;z-index:99;
@@ -594,6 +594,7 @@ body.sr-open{overflow:hidden}
 
 /* ============ RESPONSIVE ============ */
 @media (max-width:1020px){
+  .nav-inner{justify-content:space-between}
   .nav-links{display:none}
   .nav-call{display:none}
   .nav-toggle{display:grid;margin-left:auto}
@@ -663,7 +664,8 @@ body.sr-open{overflow:hidden}
       </a>
       <a class="btn btn-primary btn-sm js-quote" href="sms:+19126593049?&amp;body=Hey%2C%20I%20need%20a%20quote%20for%20your%20services.">Get a Quote</a>
       <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="mobileMenu" aria-label="Open menu">
-        <span></span><span></span><span></span>
+        <svg class="icon-menu" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+        <svg class="icon-close" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>
       </button>
     </div>
   </div>
