@@ -548,6 +548,16 @@ a.meta-value:hover{color:var(--blue-600)}
   border-radius:10px;padding:.8rem 1rem;font-size:.9rem;margin-bottom:1rem;
 }
 .sr-error.show{display:block}
+.sr-optional{font-weight:500;color:var(--slate);text-transform:none;letter-spacing:0;font-size:.85em}
+.sr-hint{font-size:.8rem;color:var(--slate);margin-top:.45rem;line-height:1.4}
+.sr-textarea{min-height:84px;resize:vertical;font-family:inherit}
+.sr-input[type="file"]{padding:.55rem .7rem;cursor:pointer}
+.sr-input[type="file"]::file-selector-button{
+  margin-right:.75rem;border:none;border-radius:8px;padding:.5rem .9rem;
+  background:var(--blue-100);color:var(--blue-700);font-weight:600;font-size:.85rem;
+  cursor:pointer;transition:background-color .15s ease,color .15s ease;
+}
+.sr-input[type="file"]::file-selector-button:hover{background:var(--blue-600);color:#fff}
 .sr-submit{width:100%}
 .sr-submit[disabled]{opacity:.65;cursor:not-allowed;transform:none!important}
 .sr-success{text-align:center;padding:1.2rem 0 .4rem}
@@ -1137,11 +1147,73 @@ body.sr-open{overflow:hidden}
           </fieldset>
         </div>
 
+        <!-- Window Cleaning questions (shown only for Window Cleaning) -->
+        <div id="srWindowFields" hidden>
+          <div class="sr-field">
+            <label for="srWindowCount">About how many windows do you have? <span class="sr-optional">(estimated, optional)</span></label>
+            <input class="sr-input" id="srWindowCount" name="windowCount" type="text" inputmode="numeric" placeholder="e.g. 12" autocomplete="off">
+          </div>
+          <fieldset class="sr-fieldset" id="srScreensSet">
+            <legend>Do your windows have screens?</legend>
+            <div class="sr-choices">
+              <label class="sr-chip"><input type="radio" name="screens" value="Yes"><span>Yes</span></label>
+              <label class="sr-chip"><input type="radio" name="screens" value="No"><span>No</span></label>
+            </div>
+          </fieldset>
+          <div class="sr-field" id="srScreenCountField" hidden>
+            <label for="srScreenCount">About how many screens? <span class="sr-optional">(optional)</span></label>
+            <input class="sr-input" id="srScreenCount" name="screenCount" type="text" inputmode="numeric" placeholder="e.g. 8" autocomplete="off">
+          </div>
+        </div>
+
+        <!-- Pressure Washing questions (shown only for Pressure Washing) -->
+        <div id="srPressureFields" hidden>
+          <fieldset class="sr-fieldset" id="srPressureAreasSet">
+            <legend>What would you like pressure washed?</legend>
+            <div class="sr-choices">
+              <label class="sr-chip"><input type="checkbox" name="pressureAreas" value="Roof"><span>Roof</span></label>
+              <label class="sr-chip"><input type="checkbox" name="pressureAreas" value="House / Siding"><span>House / Siding</span></label>
+              <label class="sr-chip"><input type="checkbox" name="pressureAreas" value="Driveway"><span>Driveway</span></label>
+              <label class="sr-chip"><input type="checkbox" name="pressureAreas" value="Trailer / Mobile Home"><span>Trailer / Mobile Home</span></label>
+              <label class="sr-chip"><input type="checkbox" name="pressureAreas" value="Deck / Patio"><span>Deck / Patio</span></label>
+              <label class="sr-chip"><input type="checkbox" name="pressureAreas" value="Fence"><span>Fence</span></label>
+              <label class="sr-chip"><input type="checkbox" name="pressureAreas" value="Sidewalk / Walkway"><span>Sidewalk / Walkway</span></label>
+              <label class="sr-chip"><input type="checkbox" name="pressureAreas" value="Pool Deck"><span>Pool Deck</span></label>
+              <label class="sr-chip"><input type="checkbox" name="pressureAreas" value="Other"><span>Other</span></label>
+            </div>
+          </fieldset>
+          <div class="sr-field">
+            <label for="srPressureSqft">Approx. square footage <span class="sr-optional">(optional)</span></label>
+            <input class="sr-input" id="srPressureSqft" name="pressureSqft" type="text" inputmode="numeric" placeholder="e.g. 1800 sq ft" autocomplete="off">
+          </div>
+        </div>
+
+        <!-- Interior Home Cleaning questions (shown only for Interior Home Cleaning) -->
+        <div id="srInteriorFields" hidden>
+          <div class="sr-field">
+            <label for="srRooms">How many rooms need cleaning?</label>
+            <input class="sr-input" id="srRooms" name="rooms" type="text" inputmode="numeric" placeholder="e.g. 3 bedrooms, 2 baths" autocomplete="off">
+          </div>
+          <div class="sr-field">
+            <label for="srSqft">Approx. square footage of the home <span class="sr-optional">(optional)</span></label>
+            <input class="sr-input" id="srSqft" name="sqft" type="text" inputmode="numeric" placeholder="e.g. 1800 sq ft" autocomplete="off">
+          </div>
+        </div>
+
         <!-- Contact info (shown once a service is selected) -->
         <div id="srCommon" hidden>
           <div class="sr-note" id="srNote" hidden>
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
             <span>We'll give you a call to schedule a time for us to come out and provide you with a free quote.</span>
+          </div>
+          <div class="sr-field">
+            <label for="srPhoto">Add a photo <span class="sr-optional">(optional)</span></label>
+            <input class="sr-input" id="srPhoto" name="photo" type="file" accept="image/*">
+            <p class="sr-hint">A photo can help us give you a more accurate quote. JPG or PNG, up to 10MB.</p>
+          </div>
+          <div class="sr-field">
+            <label for="srExtraNote">Anything else you'd like us to know? <span class="sr-optional">(optional)</span></label>
+            <textarea class="sr-input sr-textarea" id="srExtraNote" name="notes" rows="3" placeholder="Add a note…"></textarea>
           </div>
           <div class="sr-field">
             <label for="srName">Name</label>
@@ -1199,7 +1271,7 @@ const SITE_CONFIG = {
          (same delivery method as the Get a Quote buttons).
        - Paste a form endpoint URL (e.g. Formspree/Basin) → submissions
          are POSTed there as JSON instead, with no texting step. */
-    endpoint: ""
+    endpoint: "https://formspree.io/f/mljropvk"
   },
   phones: {
     general:  { display: "(912) 659-3049", tel: "+19126593049" },   /* Pressure washing, windows, detailing, general */
@@ -1360,6 +1432,19 @@ const SITE_CONFIG = {
     var srError = document.getElementById("srError");
     var srPetHairSet = document.getElementById("srPetHairSet");
     var srStainsSet = document.getElementById("srStainsSet");
+    var srWindowFields = document.getElementById("srWindowFields");
+    var srPressureFields = document.getElementById("srPressureFields");
+    var srInteriorFields = document.getElementById("srInteriorFields");
+    var srScreensSet = document.getElementById("srScreensSet");
+    var srScreenCountField = document.getElementById("srScreenCountField");
+    var srWindowCount = document.getElementById("srWindowCount");
+    var srScreenCount = document.getElementById("srScreenCount");
+    var srPressureAreasSet = document.getElementById("srPressureAreasSet");
+    var srPressureSqft = document.getElementById("srPressureSqft");
+    var srRooms = document.getElementById("srRooms");
+    var srSqft = document.getElementById("srSqft");
+    var srPhoto = document.getElementById("srPhoto");
+    var srExtraNote = document.getElementById("srExtraNote");
     var srLastFocus = null;
     var srSubmitting = false;
     var srShowedSuccess = false;
@@ -1368,13 +1453,17 @@ const SITE_CONFIG = {
 
     function srClearInvalid() {
       srError.classList.remove("show");
-      [srService, srVehicle, srName, srPhone, srAddress].forEach(function (el) { el.classList.remove("invalid"); });
-      [srPetHairSet, srStainsSet].forEach(function (el) { el.classList.remove("invalid"); });
+      [srService, srVehicle, srName, srPhone, srAddress, srRooms, srPhoto].forEach(function (el) { el.classList.remove("invalid"); });
+      [srPetHairSet, srStainsSet, srScreensSet, srPressureAreasSet].forEach(function (el) { el.classList.remove("invalid"); });
     }
 
     function srResetAll() {
       srForm.reset();
       srCarFields.hidden = true;
+      srWindowFields.hidden = true;
+      srPressureFields.hidden = true;
+      srInteriorFields.hidden = true;
+      srScreenCountField.hidden = true;
       srCommon.hidden = true;
       srNote.hidden = true;
       srClearInvalid();
@@ -1415,15 +1504,37 @@ const SITE_CONFIG = {
     /* Dynamic fields per service */
     srService.addEventListener("change", function () {
       var isCar = srIsCar();
+      var isWindow = srService.value === "Window Cleaning";
+      var isPressure = srService.value === "Pressure Washing";
+      var isInterior = srService.value === "Interior Home Cleaning";
+
       srCarFields.hidden = !isCar;
+      srWindowFields.hidden = !isWindow;
+      srPressureFields.hidden = !isPressure;
+      srInteriorFields.hidden = !isInterior;
       srCommon.hidden = !srService.value;
       srNote.hidden = isCar;
       srAddressLabel.textContent = isCar ? "Service Address" : "Property Address";
       srClearInvalid();
+
       if (!isCar) {
         /* leaving Car Detailing: clear its answers so stale data is never submitted */
         srVehicle.value = "";
         srForm.querySelectorAll('input[name="petHair"],input[name="stains"],input[name="addons"]').forEach(function (i) { i.checked = false; });
+      }
+      if (!isWindow) {
+        srWindowCount.value = "";
+        srScreenCount.value = "";
+        srScreenCountField.hidden = true;
+        srForm.querySelectorAll('input[name="screens"]').forEach(function (i) { i.checked = false; });
+      }
+      if (!isPressure) {
+        srPressureSqft.value = "";
+        srForm.querySelectorAll('input[name="pressureAreas"]').forEach(function (i) { i.checked = false; });
+      }
+      if (!isInterior) {
+        srRooms.value = "";
+        srSqft.value = "";
       }
     });
 
@@ -1437,6 +1548,16 @@ const SITE_CONFIG = {
         } else if (cb.checked && srNone.checked) {
           srNone.checked = false;
         }
+      });
+    });
+    var srPressureAreas = Array.prototype.slice.call(srForm.querySelectorAll('input[name="pressureAreas"]'));
+
+    /* Show the "how many screens" field only once "Yes" is chosen */
+    srForm.querySelectorAll('input[name="screens"]').forEach(function (r) {
+      r.addEventListener("change", function () {
+        var showCount = srRadioValue("screens") === "Yes";
+        srScreenCountField.hidden = !showCount;
+        if (!showCount) srScreenCount.value = "";
       });
     });
 
@@ -1454,12 +1575,25 @@ const SITE_CONFIG = {
         if (!srRadioValue("petHair")) { srPetHairSet.classList.add("invalid"); bad.push(srPetHairSet.querySelector("input")); }
         if (!srRadioValue("stains")) { srStainsSet.classList.add("invalid"); bad.push(srStainsSet.querySelector("input")); }
       }
+      if (srService.value === "Window Cleaning") {
+        if (!srRadioValue("screens")) { srScreensSet.classList.add("invalid"); bad.push(srScreensSet.querySelector("input")); }
+      }
+      if (srService.value === "Pressure Washing") {
+        if (!srForm.querySelector('input[name="pressureAreas"]:checked')) { srPressureAreasSet.classList.add("invalid"); bad.push(srPressureAreasSet.querySelector("input")); }
+      }
+      if (srService.value === "Interior Home Cleaning") {
+        if (!srRooms.value.trim()) { srRooms.classList.add("invalid"); bad.push(srRooms); }
+      }
       if (!srName.value.trim()) { srName.classList.add("invalid"); bad.push(srName); }
       var digits = srPhone.value.replace(/\D/g, "");
       if (digits.length < 10 || digits.length > 15) { srPhone.classList.add("invalid"); bad.push(srPhone); }
       if (!srAddress.value.trim()) { srAddress.classList.add("invalid"); bad.push(srAddress); }
+      var photoTooBig = srPhoto.files && srPhoto.files[0] && srPhoto.files[0].size > 10 * 1024 * 1024;
+      if (photoTooBig) { srPhoto.classList.add("invalid"); bad.push(srPhoto); }
       if (bad.length) {
-        srError.textContent = "Please complete the highlighted fields" + (srPhone.classList.contains("invalid") ? " (phone number should have at least 10 digits)" : "") + ".";
+        srError.textContent = "Please complete the highlighted fields" +
+          (srPhone.classList.contains("invalid") ? " (phone number should have at least 10 digits)" : "") +
+          (photoTooBig ? " (photo is over 10MB — please choose a smaller one)" : "") + ".";
         srError.classList.add("show");
         if (bad[0] && bad[0].focus) bad[0].focus();
         return false;
@@ -1473,6 +1607,7 @@ const SITE_CONFIG = {
         name: srName.value.trim(),
         phone: srPhone.value.trim(),
         address: srAddress.value.trim(),
+        notes: srExtraNote.value.trim(),
         submittedAt: new Date().toISOString(),
         page: location.href
       };
@@ -1482,15 +1617,29 @@ const SITE_CONFIG = {
         data.stains = srRadioValue("stains");
         data.additionalServices = srAddons.filter(function (c) { return c.checked; }).map(function (c) { return c.value; });
       }
+      if (srService.value === "Window Cleaning") {
+        data.windowCount = srWindowCount.value.trim();
+        data.screens = srRadioValue("screens");
+        data.screenCount = srScreenCount.value.trim();
+      }
+      if (srService.value === "Pressure Washing") {
+        data.pressureAreas = srPressureAreas.filter(function (c) { return c.checked; }).map(function (c) { return c.value; });
+        data.pressureSqft = srPressureSqft.value.trim();
+      }
+      if (srService.value === "Interior Home Cleaning") {
+        data.rooms = srRooms.value.trim();
+        data.sqft = srSqft.value.trim();
+      }
       return data;
     }
 
-    function srShowSuccess(data, smsHandoff) {
+    function srShowSuccess(data, smsHandoff, photoNotAttached) {
       var isCar = data.service === "Car Detailing";
       if (smsHandoff) {
         srSuccessTitle.textContent = "One last step!";
         srSuccessText.textContent = "We opened your messaging app with your request details filled in — just press Send and it comes straight to our phone." +
-          (isCar ? "" : " Once we get it, we'll call you to schedule a time to come out and provide your free quote.");
+          (isCar ? "" : " Once we get it, we'll call you to schedule a time to come out and provide your free quote.") +
+          (photoNotAttached ? " Your photo couldn't be attached to the text automatically — please send it as a separate picture message right after." : "");
       } else {
         srSuccessTitle.textContent = "Request received!";
         srSuccessText.textContent = isCar
@@ -1511,9 +1660,23 @@ const SITE_CONFIG = {
         lines.push("Stains: " + data.stains);
         lines.push("Additional services: " + (data.additionalServices.length ? data.additionalServices.join(", ") : "None selected"));
       }
+      if (data.service === "Window Cleaning") {
+        lines.push("Estimated windows: " + (data.windowCount || "Not provided"));
+        lines.push("Screens: " + (data.screens || "Not provided") + (data.screens === "Yes" && data.screenCount ? " (" + data.screenCount + ")" : ""));
+      }
+      if (data.service === "Pressure Washing") {
+        lines.push("Areas to pressure wash: " + (data.pressureAreas.length ? data.pressureAreas.join(", ") : "Not specified"));
+        if (data.pressureSqft) lines.push("Approx. sq ft: " + data.pressureSqft);
+      }
+      if (data.service === "Interior Home Cleaning") {
+        lines.push("Rooms: " + data.rooms);
+        if (data.sqft) lines.push("Approx. sq ft: " + data.sqft);
+      }
       lines.push("Name: " + data.name);
       lines.push("Phone: " + data.phone);
       lines.push("Address: " + data.address);
+      if (data.notes) lines.push("Note: " + data.notes);
+      if (srPhoto.files && srPhoto.files[0]) lines.push("Photo: attached separately (send as a picture message right after this text)");
       return lines.join("\n");
     }
 
@@ -1523,16 +1686,26 @@ const SITE_CONFIG = {
       if (!srValidate()) return;
       var data = srCollect();
       var endpoint = (SITE_CONFIG.serviceRequest || {}).endpoint;
+      var hasPhoto = !!(srPhoto.files && srPhoto.files[0]);
       srSubmitting = true;
       srSubmit.disabled = true;
       srSubmit.textContent = "Sending…";
       srError.classList.remove("show");
 
       if (endpoint) {
+        /* FormData (not JSON) so an optional photo can ride along as a
+           real file attachment — this is the native format most form
+           backends (e.g. Formspree) expect for file uploads. */
+        var fd = new FormData();
+        Object.keys(data).forEach(function (key) {
+          var val = data[key];
+          fd.append(key, Array.isArray(val) ? (val.length ? val.join(", ") : "None selected") : val);
+        });
+        if (hasPhoto) fd.append("photo", srPhoto.files[0]);
         fetch(endpoint, {
           method: "POST",
-          headers: { "Content-Type": "application/json", "Accept": "application/json" },
-          body: JSON.stringify(data)
+          headers: { "Accept": "application/json" },
+          body: fd
         }).then(function (res) {
           if (!res.ok) throw new Error("HTTP " + res.status);
           srShowSuccess(data, false);
@@ -1546,10 +1719,11 @@ const SITE_CONFIG = {
         });
       } else {
         /* No endpoint configured — hand off via text message, the same
-           delivery channel the site's quote buttons already use. */
+           delivery channel the site's quote buttons already use. Photos
+           can't ride along on an sms: link, so we flag that clearly. */
         var phoneKey = data.service === "Interior Home Cleaning" ? "interior" : "general";
         var href = "sms:" + SITE_CONFIG.phones[phoneKey].tel + "?&body=" + encodeURIComponent(srBuildSms(data));
-        srShowSuccess(data, true);
+        srShowSuccess(data, true, hasPhoto);
         srSubmitting = false;
         srSubmit.disabled = false;
         srSubmit.textContent = "Submit Request";
