@@ -239,8 +239,9 @@ h3{font-size:clamp(1.25rem,2vw,1.5rem);font-weight:700}
 
 .nav-toggle{display:none;width:44px;height:44px;border-radius:10px;place-items:center;flex:none}
 .nav-toggle span{display:block;width:22px;height:2px;background:var(--navy-900);border-radius:2px;transition:transform .25s ease,opacity .2s ease;margin:2.5px 0}
-.nav-toggle[aria-expanded="true"] span:nth-child(1){transform:translateY(4.5px) rotate(45deg)}
-.nav-toggle[aria-expanded="true"] span:nth-child(2){transform:translateY(-4.5px) rotate(-45deg)}
+.nav-toggle[aria-expanded="true"] span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.nav-toggle[aria-expanded="true"] span:nth-child(2){opacity:0}
+.nav-toggle[aria-expanded="true"] span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
 
 .mobile-menu{
   display:none;position:fixed;top:var(--nav-h);left:0;right:0;z-index:99;
@@ -249,9 +250,10 @@ h3{font-size:clamp(1.25rem,2vw,1.5rem);font-weight:700}
   padding:.75rem 1.5rem 1.5rem;
 }
 .mobile-menu.open{display:block}
-.mobile-menu a{display:block;padding:.9rem .35rem;font-weight:600;font-size:1.05rem;color:var(--navy-900);border-bottom:1px solid var(--line)}
-.mobile-menu a:last-of-type{border-bottom:none}
+.mobile-menu nav a{display:block;padding:.9rem .35rem;font-weight:600;font-size:1.05rem;color:var(--navy-900);border-bottom:1px solid var(--line)}
+.mobile-menu nav a:last-of-type{border-bottom:none}
 .mobile-menu .menu-ctas{display:grid;gap:.7rem;margin-top:.9rem}
+.mobile-menu .menu-ctas .btn{width:100%;justify-content:center}
 
 /* ============ HERO ============ */
 .hero{padding:calc(var(--nav-h) + clamp(2.5rem,7vw,5rem)) 0 clamp(3rem,7vw,5.5rem)}
@@ -661,7 +663,7 @@ body.sr-open{overflow:hidden}
       </a>
       <a class="btn btn-primary btn-sm js-quote" href="sms:+19126593049?&amp;body=Hey%2C%20I%20need%20a%20quote%20for%20your%20services.">Get a Quote</a>
       <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="mobileMenu" aria-label="Open menu">
-        <span></span><span></span>
+        <span></span><span></span><span></span>
       </button>
     </div>
   </div>
@@ -791,10 +793,7 @@ body.sr-open{overflow:hidden}
           <div class="service-media">
             <!-- PHOTO SLOT: window-cleaning -->
             <figure class="media" data-photo="window-cleaning">
-              <div class="ph-inner" aria-hidden="true">
-            <img class="ph-logo" src="web/logo.png" alt="">
-            <span class="ph-word">Trujillo's Cleaning Services</span>
-          </div>
+              <img src="web/window-cleaning-house.jpg" alt="Trujillo's team member cleaning a home's window shutters from a ladder in Savannah, GA">
             </figure>
           </div>
           <div>
@@ -815,10 +814,7 @@ body.sr-open{overflow:hidden}
           <div class="service-media">
             <!-- PHOTO SLOT: interior-cleaning -->
             <figure class="media" data-photo="interior-cleaning">
-              <div class="ph-inner" aria-hidden="true">
-            <img class="ph-logo" src="web/logo.png" alt="">
-            <span class="ph-word">Trujillo's Cleaning Services</span>
-          </div>
+              <img src="web/interior-cleaning-team.jpg" alt="Trujillo's interior cleaning team wiping down desks and vacuuming a commercial space">
             </figure>
           </div>
           <div>
