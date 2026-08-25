@@ -575,6 +575,27 @@ body.sr-open{overflow:hidden}
   .sr-modal{max-height:calc(100vh - 1.2rem);max-height:calc(100dvh - 1.2rem)}
 }
 
+/* ============ CAREERS / JOB APPLICATION ============ */
+.careers{background:var(--blue-50);border-top:1px solid var(--line)}
+.careers-card{
+  background:#fff;border:1px solid var(--line);border-radius:var(--radius);
+  box-shadow:var(--shadow-sm);
+  padding:clamp(1.8rem,4vw,2.6rem);
+}
+.careers-grid{display:grid;grid-template-columns:1fr 1fr;gap:0 1.4rem}
+.careers-grid .sr-field,.careers-grid .sr-fieldset{grid-column:span 2}
+.careers-grid .sr-field.sr-field--half{grid-column:span 1}
+.careers-success{text-align:center;padding:1.2rem 0 .4rem}
+.careers-success .ok{
+  width:64px;height:64px;border-radius:50%;background:var(--blue-100);
+  display:grid;place-items:center;margin:0 auto 1.1rem;color:var(--blue-600);
+}
+.careers-success p{color:var(--slate);font-size:.95rem;max-width:44ch;margin:0 auto 1.4rem}
+@media (max-width:640px){
+  .careers-grid{grid-template-columns:1fr}
+  .careers-grid .sr-field.sr-field--half{grid-column:span 1}
+}
+
 /* ============ REVEAL ANIMATIONS ============ */
 .reveal{opacity:0;transform:translateY(22px);transition:opacity .65s cubic-bezier(.2,.6,.25,1),transform .65s cubic-bezier(.2,.6,.25,1)}
 .reveal.in{opacity:1;transform:none}
@@ -656,6 +677,7 @@ body.sr-open{overflow:hidden}
       <a href="#why">Why Us</a>
       <a href="#about">About</a>
       <a href="#contact">Contact</a>
+      <a href="#careers">Careers</a>
     </nav>
     <div class="nav-actions">
       <a class="nav-call" href="tel:+19126593049" data-phone="general">
@@ -682,6 +704,7 @@ body.sr-open{overflow:hidden}
     <a href="#why">Why Us</a>
     <a href="#about">About</a>
     <a href="#contact">Contact</a>
+    <a href="#careers">Careers</a>
   </nav>
   <div class="menu-ctas">
     <button class="btn btn-primary js-request" type="button">
@@ -1039,6 +1062,76 @@ body.sr-open{overflow:hidden}
     </div>
   </section>
 
+  <!-- ================= CAREERS / JOB APPLICATION ================= -->
+  <section class="section careers" id="careers" aria-label="Join our team">
+    <div class="container">
+      <div class="section-head reveal">
+        <p class="eyebrow">Careers</p>
+        <h2>Join our team.</h2>
+        <p class="lead">We're always looking for reliable, hard-working people to join Trujillo's. Fill out the form below and we'll be in touch.</p>
+      </div>
+
+      <div class="careers-card reveal">
+        <div id="careersFormWrap">
+          <form id="careersForm" novalidate>
+            <div class="careers-grid">
+              <div class="sr-field sr-field--half">
+                <label for="caName">Full name</label>
+                <input class="sr-input" id="caName" name="name" type="text" autocomplete="name" required>
+              </div>
+              <div class="sr-field sr-field--half">
+                <label for="caPhone">Phone number</label>
+                <input class="sr-input" id="caPhone" name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="(912) 555-1234" required>
+              </div>
+              <div class="sr-field sr-field--half">
+                <label for="caEmail">Email</label>
+                <input class="sr-input" id="caEmail" name="email" type="email" autocomplete="email" required>
+              </div>
+              <div class="sr-field sr-field--half">
+                <label for="caAvailability">Availability</label>
+                <input class="sr-input" id="caAvailability" name="availability" type="text" placeholder="e.g. Weekdays, mornings only" required>
+              </div>
+              <fieldset class="sr-fieldset" id="caTransportSet">
+                <legend>Do you have reliable transportation?</legend>
+                <div class="sr-choices">
+                  <label class="sr-chip"><input type="radio" name="transportation" value="Yes"><span>Yes</span></label>
+                  <label class="sr-chip"><input type="radio" name="transportation" value="No"><span>No</span></label>
+                </div>
+              </fieldset>
+              <div class="sr-field">
+                <label for="caExperience">Prior cleaning/detailing experience <span class="sr-optional">(optional)</span></label>
+                <textarea class="sr-input sr-textarea" id="caExperience" name="experience" rows="3" placeholder="Tell us about any relevant experience…"></textarea>
+              </div>
+              <div class="sr-field">
+                <label for="caWhy">Why do you want to join our team?</label>
+                <textarea class="sr-input sr-textarea" id="caWhy" name="why" rows="3" placeholder="Tell us a bit about yourself…" required></textarea>
+              </div>
+              <div class="sr-field">
+                <label for="caResume">Resume <span class="sr-optional">(optional)</span></label>
+                <input class="sr-input" id="caResume" name="resume" type="file" accept=".pdf,.doc,.docx,image/*">
+                <p class="sr-hint">PDF, Word doc, or image, up to 10MB.</p>
+              </div>
+              <div class="sr-field">
+                <label for="caNote">Anything else you'd like us to know? <span class="sr-optional">(optional)</span></label>
+                <textarea class="sr-input sr-textarea" id="caNote" name="notes" rows="3" placeholder="Add a note…"></textarea>
+              </div>
+            </div>
+            <div class="sr-error" id="caError" role="alert"></div>
+            <button class="btn btn-primary sr-submit" id="caSubmit" type="submit">Submit Application</button>
+          </form>
+        </div>
+
+        <div class="careers-success" id="caSuccess" hidden>
+          <div class="ok" aria-hidden="true">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+          </div>
+          <h3>Application received!</h3>
+          <p id="caSuccessText">Thanks for applying to Trujillo's Cleaning Services. We'll review your application and reach out if it looks like a good fit.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
 </main>
 
 <!-- ================= FOOTER ================= -->
@@ -1072,6 +1165,7 @@ body.sr-open{overflow:hidden}
         <a href="#why">Why Us</a>
         <a href="#about">About</a>
         <a href="#contact">Contact</a>
+        <a href="#careers">Careers</a>
       </div>
       <div class="footer-col">
         <h4>Services</h4>
@@ -1293,6 +1387,16 @@ const SITE_CONFIG = {
          are POSTed there as JSON instead, with no texting step. */
     endpoint: "https://formspree.io/f/mljropvk"
   },
+  careers: {
+    /* Where job application submissions go.
+       Currently reuses the same Formspree endpoint as Request Service —
+       each application is tagged with a distinct email subject line
+       ("New Job Application…") and a formType field so it's easy to
+       tell apart from service requests in your inbox.
+       Paste a different endpoint here later if you'd rather keep
+       applications in a fully separate Formspree form/inbox. */
+    endpoint: "https://formspree.io/f/mljropvk"
+  },
   phones: {
     general:  { display: "(912) 659-3049", tel: "+19126593049" },   /* Pressure washing, windows, detailing, general */
     interior: { display: "(912) 604-4320", tel: "+19126044320" }    /* Interior Home Cleaning ONLY */
@@ -1380,7 +1484,7 @@ const SITE_CONFIG = {
   });
 
   /* ---------- Active nav link ---------- */
-  var sections = ["services", "why", "about", "contact"];
+  var sections = ["services", "why", "about", "contact", "careers"];
   var navLinks = document.querySelectorAll(".nav-links a");
   function setActive(id) {
     navLinks.forEach(function (a) {
@@ -1747,6 +1851,131 @@ const SITE_CONFIG = {
         srSubmitting = false;
         srSubmit.disabled = false;
         srSubmit.textContent = "Submit Request";
+        window.location.href = href;
+      }
+    });
+  }
+
+  /* ---------- Careers / Job Application form ---------- */
+  var caForm = document.getElementById("careersForm");
+  if (caForm) {
+    var caFormWrap = document.getElementById("careersFormWrap");
+    var caSuccess = document.getElementById("caSuccess");
+    var caSuccessText = document.getElementById("caSuccessText");
+    var caName = document.getElementById("caName");
+    var caPhone = document.getElementById("caPhone");
+    var caEmail = document.getElementById("caEmail");
+    var caAvailability = document.getElementById("caAvailability");
+    var caTransportSet = document.getElementById("caTransportSet");
+    var caExperience = document.getElementById("caExperience");
+    var caWhy = document.getElementById("caWhy");
+    var caResume = document.getElementById("caResume");
+    var caNote = document.getElementById("caNote");
+    var caSubmit = document.getElementById("caSubmit");
+    var caError = document.getElementById("caError");
+    var caSubmitting = false;
+
+    function caRadioValue(name) {
+      var el = caForm.querySelector('input[name="' + name + '"]:checked');
+      return el ? el.value : "";
+    }
+
+    function caClearInvalid() {
+      caError.classList.remove("show");
+      [caName, caPhone, caEmail, caAvailability, caWhy, caResume].forEach(function (el) { el.classList.remove("invalid"); });
+      caTransportSet.classList.remove("invalid");
+    }
+
+    function caValidate() {
+      caClearInvalid();
+      var bad = [];
+      if (!caName.value.trim()) { caName.classList.add("invalid"); bad.push(caName); }
+      var digits = caPhone.value.replace(/\D/g, "");
+      if (digits.length < 10 || digits.length > 15) { caPhone.classList.add("invalid"); bad.push(caPhone); }
+      if (!caEmail.value.trim() || !caEmail.checkValidity()) { caEmail.classList.add("invalid"); bad.push(caEmail); }
+      if (!caAvailability.value.trim()) { caAvailability.classList.add("invalid"); bad.push(caAvailability); }
+      if (!caRadioValue("transportation")) { caTransportSet.classList.add("invalid"); bad.push(caTransportSet.querySelector("input")); }
+      if (!caWhy.value.trim()) { caWhy.classList.add("invalid"); bad.push(caWhy); }
+      var resumeTooBig = caResume.files && caResume.files[0] && caResume.files[0].size > 10 * 1024 * 1024;
+      if (resumeTooBig) { caResume.classList.add("invalid"); bad.push(caResume); }
+      if (bad.length) {
+        caError.textContent = "Please complete the highlighted fields" +
+          (caPhone.classList.contains("invalid") ? " (phone number should have at least 10 digits)" : "") +
+          (!caEmail.checkValidity() ? " (please enter a valid email)" : "") +
+          (resumeTooBig ? " (resume is over 10MB — please choose a smaller file)" : "") + ".";
+        caError.classList.add("show");
+        if (bad[0] && bad[0].focus) bad[0].focus();
+        return false;
+      }
+      return true;
+    }
+
+    caForm.addEventListener("submit", function (e) {
+      e.preventDefault();
+      if (caSubmitting) return;
+      if (!caValidate()) return;
+
+      var endpoint = (SITE_CONFIG.careers || {}).endpoint;
+      var hasResume = !!(caResume.files && caResume.files[0]);
+      caSubmitting = true;
+      caSubmit.disabled = true;
+      caSubmit.textContent = "Sending…";
+      caError.classList.remove("show");
+
+      if (endpoint) {
+        var fd = new FormData();
+        fd.append("name", caName.value.trim());
+        fd.append("phone", caPhone.value.trim());
+        fd.append("email", caEmail.value.trim());
+        fd.append("availability", caAvailability.value.trim());
+        fd.append("transportation", caRadioValue("transportation"));
+        fd.append("experience", caExperience.value.trim());
+        fd.append("why", caWhy.value.trim());
+        fd.append("notes", caNote.value.trim());
+        fd.append("submittedAt", new Date().toISOString());
+        fd.append("page", location.href);
+        fd.append("formType", "Job Application");
+        fd.append("_subject", "New Job Application — Trujillo's Cleaning");
+        if (hasResume) fd.append("resume", caResume.files[0]);
+
+        fetch(endpoint, {
+          method: "POST",
+          headers: { "Accept": "application/json" },
+          body: fd
+        }).then(function (res) {
+          if (!res.ok) throw new Error("HTTP " + res.status);
+          caSuccessText.textContent = "Thanks for applying to Trujillo's Cleaning Services. We'll review your application and reach out if it looks like a good fit.";
+          caFormWrap.hidden = true;
+          caSuccess.hidden = false;
+        }).catch(function () {
+          caError.textContent = "Something went wrong sending your application. Please try again, or call us at " + SITE_CONFIG.phones.general.display + ".";
+          caError.classList.add("show");
+        }).finally(function () {
+          caSubmitting = false;
+          caSubmit.disabled = false;
+          caSubmit.textContent = "Submit Application";
+        });
+      } else {
+        /* No endpoint configured — hand off via text message. Resumes
+           can't ride along on an sms: link, so we flag that clearly. */
+        var lines = ["Job Application"];
+        lines.push("Name: " + caName.value.trim());
+        lines.push("Phone: " + caPhone.value.trim());
+        lines.push("Email: " + caEmail.value.trim());
+        lines.push("Availability: " + caAvailability.value.trim());
+        lines.push("Reliable transportation: " + caRadioValue("transportation"));
+        if (caExperience.value.trim()) lines.push("Experience: " + caExperience.value.trim());
+        lines.push("Why they want to join: " + caWhy.value.trim());
+        if (caNote.value.trim()) lines.push("Note: " + caNote.value.trim());
+        if (hasResume) lines.push("Resume: not attached — please email it separately");
+        var href = "sms:" + SITE_CONFIG.phones.general.tel + "?&body=" + encodeURIComponent(lines.join("\n"));
+        caSuccessText.textContent = "We opened your messaging app with your application details filled in — just press Send." +
+          (hasResume ? " Your resume couldn't be attached to the text automatically — please email it to " + SITE_CONFIG.email + "." : "");
+        caFormWrap.hidden = true;
+        caSuccess.hidden = false;
+        caSubmitting = false;
+        caSubmit.disabled = false;
+        caSubmit.textContent = "Submit Application";
         window.location.href = href;
       }
     });
