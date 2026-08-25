@@ -580,20 +580,17 @@ body.sr-open{overflow:hidden}
 .careers-card{
   background:#fff;border:1px solid var(--line);border-radius:var(--radius);
   box-shadow:var(--shadow-sm);
-  padding:clamp(1.8rem,4vw,2.6rem);
+  padding:clamp(2.2rem,6vw,3.2rem);
+  text-align:center;
 }
-.careers-grid{display:grid;grid-template-columns:1fr 1fr;gap:0 1.4rem}
-.careers-grid .sr-field,.careers-grid .sr-fieldset{grid-column:span 2}
-.careers-grid .sr-field.sr-field--half{grid-column:span 1}
-.careers-success{text-align:center;padding:1.2rem 0 .4rem}
-.careers-success .ok{
-  width:64px;height:64px;border-radius:50%;background:var(--blue-100);
-  display:grid;place-items:center;margin:0 auto 1.1rem;color:var(--blue-600);
-}
-.careers-success p{color:var(--slate);font-size:.95rem;max-width:44ch;margin:0 auto 1.4rem}
+.careers-card p{color:var(--slate);max-width:48ch;margin:0 auto 1.5rem}
+/* Field grid used inside the "Apply for a Job" modal */
+.ca-grid{display:grid;grid-template-columns:1fr 1fr;gap:0 1.4rem;text-align:left}
+.ca-grid .sr-field,.ca-grid .sr-fieldset{grid-column:span 2}
+.ca-grid .sr-field.sr-field--half{grid-column:span 1}
 @media (max-width:640px){
-  .careers-grid{grid-template-columns:1fr}
-  .careers-grid .sr-field.sr-field--half{grid-column:span 1}
+  .ca-grid{grid-template-columns:1fr}
+  .ca-grid .sr-field.sr-field--half{grid-column:span 1}
 }
 
 /* ============ REVEAL ANIMATIONS ============ */
@@ -1068,66 +1065,15 @@ body.sr-open{overflow:hidden}
       <div class="section-head reveal">
         <p class="eyebrow">Careers</p>
         <h2>Join our team.</h2>
-        <p class="lead">We're always looking for reliable, hard-working people to join Trujillo's. Fill out the form below and we'll be in touch.</p>
+        <p class="lead">We're always looking for reliable, hard-working people to join Trujillo's.</p>
       </div>
 
       <div class="careers-card reveal">
-        <div id="careersFormWrap">
-          <form id="careersForm" novalidate>
-            <div class="careers-grid">
-              <div class="sr-field sr-field--half">
-                <label for="caName">Full name</label>
-                <input class="sr-input" id="caName" name="name" type="text" autocomplete="name" required>
-              </div>
-              <div class="sr-field sr-field--half">
-                <label for="caPhone">Phone number</label>
-                <input class="sr-input" id="caPhone" name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="(912) 555-1234" required>
-              </div>
-              <div class="sr-field sr-field--half">
-                <label for="caEmail">Email</label>
-                <input class="sr-input" id="caEmail" name="email" type="email" autocomplete="email" required>
-              </div>
-              <div class="sr-field sr-field--half">
-                <label for="caAvailability">Availability</label>
-                <input class="sr-input" id="caAvailability" name="availability" type="text" placeholder="e.g. Weekdays, mornings only" required>
-              </div>
-              <fieldset class="sr-fieldset" id="caTransportSet">
-                <legend>Do you have reliable transportation?</legend>
-                <div class="sr-choices">
-                  <label class="sr-chip"><input type="radio" name="transportation" value="Yes"><span>Yes</span></label>
-                  <label class="sr-chip"><input type="radio" name="transportation" value="No"><span>No</span></label>
-                </div>
-              </fieldset>
-              <div class="sr-field">
-                <label for="caExperience">Prior cleaning/detailing experience <span class="sr-optional">(optional)</span></label>
-                <textarea class="sr-input sr-textarea" id="caExperience" name="experience" rows="3" placeholder="Tell us about any relevant experience…"></textarea>
-              </div>
-              <div class="sr-field">
-                <label for="caWhy">Why do you want to join our team?</label>
-                <textarea class="sr-input sr-textarea" id="caWhy" name="why" rows="3" placeholder="Tell us a bit about yourself…" required></textarea>
-              </div>
-              <div class="sr-field">
-                <label for="caResume">Resume <span class="sr-optional">(optional)</span></label>
-                <input class="sr-input" id="caResume" name="resume" type="file" accept=".pdf,.doc,.docx,image/*">
-                <p class="sr-hint">PDF, Word doc, or image, up to 10MB.</p>
-              </div>
-              <div class="sr-field">
-                <label for="caNote">Anything else you'd like us to know? <span class="sr-optional">(optional)</span></label>
-                <textarea class="sr-input sr-textarea" id="caNote" name="notes" rows="3" placeholder="Add a note…"></textarea>
-              </div>
-            </div>
-            <div class="sr-error" id="caError" role="alert"></div>
-            <button class="btn btn-primary sr-submit" id="caSubmit" type="submit">Submit Application</button>
-          </form>
-        </div>
-
-        <div class="careers-success" id="caSuccess" hidden>
-          <div class="ok" aria-hidden="true">
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
-          </div>
-          <h3>Application received!</h3>
-          <p id="caSuccessText">Thanks for applying to Trujillo's Cleaning Services. We'll review your application and reach out if it looks like a good fit.</p>
-        </div>
+        <p>Interested in working with us? Apply below and we'll be in touch.</p>
+        <button class="btn btn-primary js-careers" type="button">
+          Apply for a Job
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </button>
       </div>
     </div>
   </section>
@@ -1354,6 +1300,76 @@ body.sr-open{overflow:hidden}
       <h3 id="srSuccessTitle">Request received!</h3>
       <p id="srSuccessText"></p>
       <button class="btn btn-primary" id="srDone" type="button">Done</button>
+    </div>
+  </div>
+</div>
+
+<!-- ================= CAREERS / JOB APPLICATION MODAL ================= -->
+<div class="sr-overlay" id="caOverlay" hidden>
+  <div class="sr-modal" role="dialog" aria-modal="true" aria-labelledby="caTitle">
+    <button class="sr-close" id="caCloseBtn" type="button" aria-label="Close application form">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>
+    </button>
+
+    <div id="careersFormWrap">
+      <h3 id="caTitle">Apply for a Job</h3>
+      <p class="sr-sub">Tell us a bit about yourself and we'll be in touch.</p>
+
+      <form id="careersForm" novalidate>
+        <div class="ca-grid">
+          <div class="sr-field sr-field--half">
+            <label for="caName">Full name</label>
+            <input class="sr-input" id="caName" name="name" type="text" autocomplete="name" required>
+          </div>
+          <div class="sr-field sr-field--half">
+            <label for="caPhone">Phone number</label>
+            <input class="sr-input" id="caPhone" name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="(912) 555-1234" required>
+          </div>
+          <div class="sr-field sr-field--half">
+            <label for="caEmail">Email</label>
+            <input class="sr-input" id="caEmail" name="email" type="email" autocomplete="email" required>
+          </div>
+          <div class="sr-field sr-field--half">
+            <label for="caAvailability">Availability</label>
+            <input class="sr-input" id="caAvailability" name="availability" type="text" placeholder="e.g. Weekdays, mornings only" required>
+          </div>
+          <fieldset class="sr-fieldset" id="caTransportSet">
+            <legend>Do you have reliable transportation?</legend>
+            <div class="sr-choices">
+              <label class="sr-chip"><input type="radio" name="transportation" value="Yes"><span>Yes</span></label>
+              <label class="sr-chip"><input type="radio" name="transportation" value="No"><span>No</span></label>
+            </div>
+          </fieldset>
+          <div class="sr-field">
+            <label for="caExperience">Prior cleaning/detailing experience <span class="sr-optional">(optional)</span></label>
+            <textarea class="sr-input sr-textarea" id="caExperience" name="experience" rows="3" placeholder="Tell us about any relevant experience…"></textarea>
+          </div>
+          <div class="sr-field">
+            <label for="caWhy">Why do you want to join our team?</label>
+            <textarea class="sr-input sr-textarea" id="caWhy" name="why" rows="3" placeholder="Tell us a bit about yourself…" required></textarea>
+          </div>
+          <div class="sr-field">
+            <label for="caResume">Resume <span class="sr-optional">(optional)</span></label>
+            <input class="sr-input" id="caResume" name="resume" type="file" accept=".pdf,.doc,.docx,image/*">
+            <p class="sr-hint">PDF, Word doc, or image, up to 10MB.</p>
+          </div>
+          <div class="sr-field">
+            <label for="caNote">Anything else you'd like us to know? <span class="sr-optional">(optional)</span></label>
+            <textarea class="sr-input sr-textarea" id="caNote" name="notes" rows="3" placeholder="Add a note…"></textarea>
+          </div>
+        </div>
+        <div class="sr-error" id="caError" role="alert"></div>
+        <button class="btn btn-primary sr-submit" id="caSubmit" type="submit">Submit Application</button>
+      </form>
+    </div>
+
+    <div class="sr-success" id="caSuccess" hidden>
+      <div class="ok" aria-hidden="true">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+      </div>
+      <h3 id="caSuccessTitle">Application received!</h3>
+      <p id="caSuccessText">Thanks for applying to Trujillo's Cleaning Services. We'll review your application and reach out if it looks like a good fit.</p>
+      <button class="btn btn-primary" id="caDone" type="button">Done</button>
     </div>
   </div>
 </div>
@@ -1856,9 +1872,10 @@ const SITE_CONFIG = {
     });
   }
 
-  /* ---------- Careers / Job Application form ---------- */
+  /* ---------- Careers / Job Application modal ---------- */
+  var caOverlay = document.getElementById("caOverlay");
   var caForm = document.getElementById("careersForm");
-  if (caForm) {
+  if (caOverlay && caForm) {
     var caFormWrap = document.getElementById("careersFormWrap");
     var caSuccess = document.getElementById("caSuccess");
     var caSuccessText = document.getElementById("caSuccessText");
@@ -1874,6 +1891,47 @@ const SITE_CONFIG = {
     var caSubmit = document.getElementById("caSubmit");
     var caError = document.getElementById("caError");
     var caSubmitting = false;
+    var caLastFocus = null;
+    var caShowedSuccess = false;
+
+    function caResetAll() {
+      caForm.reset();
+      caFormWrap.hidden = false;
+      caSuccess.hidden = true;
+      caSubmit.disabled = false;
+      caSubmit.textContent = "Submit Application";
+      caError.classList.remove("show");
+      [caName, caPhone, caEmail, caAvailability, caWhy, caResume].forEach(function (el) { el.classList.remove("invalid"); });
+      caTransportSet.classList.remove("invalid");
+      caShowedSuccess = false;
+    }
+
+    function caOpen() {
+      caLastFocus = document.activeElement;
+      caOverlay.hidden = false;
+      document.body.classList.add("sr-open");
+      caName.focus();
+    }
+
+    function caClose() {
+      caOverlay.hidden = true;
+      document.body.classList.remove("sr-open");
+      if (caShowedSuccess) caResetAll();
+      if (caLastFocus && caLastFocus.focus) caLastFocus.focus();
+    }
+
+    document.querySelectorAll(".js-careers").forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        caOpen();
+        if (menu.classList.contains("open")) setMenu(false);
+      });
+    });
+    document.getElementById("caCloseBtn").addEventListener("click", caClose);
+    document.getElementById("caDone").addEventListener("click", caClose);
+    caOverlay.addEventListener("click", function (e) { if (e.target === caOverlay) caClose(); });
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape" && !caOverlay.hidden) caClose();
+    });
 
     function caRadioValue(name) {
       var el = caForm.querySelector('input[name="' + name + '"]:checked');
@@ -1947,6 +2005,8 @@ const SITE_CONFIG = {
           caSuccessText.textContent = "Thanks for applying to Trujillo's Cleaning Services. We'll review your application and reach out if it looks like a good fit.";
           caFormWrap.hidden = true;
           caSuccess.hidden = false;
+          caShowedSuccess = true;
+          document.getElementById("caDone").focus();
         }).catch(function () {
           caError.textContent = "Something went wrong sending your application. Please try again, or call us at " + SITE_CONFIG.phones.general.display + ".";
           caError.classList.add("show");
@@ -1973,6 +2033,8 @@ const SITE_CONFIG = {
           (hasResume ? " Your resume couldn't be attached to the text automatically — please email it to " + SITE_CONFIG.email + "." : "");
         caFormWrap.hidden = true;
         caSuccess.hidden = false;
+        caShowedSuccess = true;
+        document.getElementById("caDone").focus();
         caSubmitting = false;
         caSubmit.disabled = false;
         caSubmit.textContent = "Submit Application";
