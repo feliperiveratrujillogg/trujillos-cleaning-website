@@ -1856,6 +1856,11 @@ const SITE_CONFIG = {
           body: fd
         }).then(function (res) {
           if (!res.ok) throw new Error("HTTP " + res.status);
+          /* Google Ads conversion — fires only once the request has actually
+             been received, since this site has no separate "thank you" page. */
+          if (typeof gtag === "function") {
+            gtag('event', 'conversion', {'send_to': 'AW-18403354651/HYOjCOzjzekcEJvQs8dE'});
+          }
           srShowSuccess(data, false);
         }).catch(function () {
           srError.textContent = "Something went wrong sending your request. Please try again, or call us at " + SITE_CONFIG.phones.general.display + ".";
