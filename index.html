@@ -1856,12 +1856,12 @@ const SITE_CONFIG = {
           body: fd
         }).then(function (res) {
           if (!res.ok) throw new Error("HTTP " + res.status);
-          /* Google Ads conversion — fires only once the request has actually
-             been received, since this site has no separate "thank you" page. */
-          if (typeof gtag === "function") {
-            gtag('event', 'conversion', {'send_to': 'AW-18403354651/HYOjCOzjzekcEJvQs8dE'});
-          }
-          srShowSuccess(data, false);
+          /* Redirect to a dedicated thank-you page instead of the inline
+             success state. This gives the request its own URL/page-load,
+             which fires the Google Ads conversion there and also lets
+             Ads use a clean URL-based "page load" conversion rule if
+             preferred over (or alongside) the event-based one. */
+          window.location.href = "/thank-you.html";
         }).catch(function () {
           srError.textContent = "Something went wrong sending your request. Please try again, or call us at " + SITE_CONFIG.phones.general.display + ".";
           srError.classList.add("show");
