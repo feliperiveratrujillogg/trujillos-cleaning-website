@@ -611,6 +611,9 @@ a.meta-value:hover{color:var(--blue-600)}
 .sr-input[type="file"]::file-selector-button:hover{background:var(--blue-600);color:#fff}
 .sr-submit{width:100%}
 .sr-submit[disabled]{opacity:.65;cursor:not-allowed;transform:none!important}
+.sr-sms-opt{display:flex;gap:.6rem;align-items:flex-start;margin:.2rem 0 1rem;font-size:.78rem;line-height:1.5;color:var(--slate);cursor:pointer;text-align:left}
+.sr-sms-opt input{flex:none;width:17px;height:17px;margin-top:.15rem;accent-color:var(--blue-600)}
+.sr-sms-opt a{color:var(--blue-600);text-decoration:underline}
 .sr-consent{font-size:.78rem;color:var(--slate);text-align:center;margin-top:.7rem;line-height:1.5}
 .sr-consent a{color:var(--blue-600);text-decoration:underline}
 .sr-success{text-align:center;padding:1.2rem 0 .4rem}
@@ -1336,8 +1339,12 @@ body.sr-open{overflow:hidden}
             <input class="sr-input" id="srAddress" name="address" type="text" autocomplete="street-address" required>
           </div>
           <div class="sr-error" id="srError" role="alert"></div>
+          <label class="sr-sms-opt">
+            <input type="checkbox" id="srSmsConsent" name="smsConsent" value="Yes">
+            <span><span class="sr-optional">(Optional)</span> I agree to receive text messages from Trujillo's Cleaning Services LLC at the number above about my service request, including quotes, scheduling, appointment reminders, and follow-ups. Message frequency varies. Msg &amp; data rates may apply. Reply STOP to opt out or HELP for help. Consent is not a condition of purchase. We do not share mobile opt-in information with third parties for marketing purposes. See our <a href="/terms-of-service.html" target="_blank" rel="noopener">Terms of Service</a> and <a href="/privacy-policy.html" target="_blank" rel="noopener">Privacy Policy</a>.</span>
+          </label>
           <button class="btn btn-primary sr-submit" id="srSubmit" type="submit">Submit Request</button>
-          <p class="sr-consent">By submitting, you agree to be contacted by phone, text, or email about your request. Msg &amp; data rates may apply. See our <a href="/terms-of-service.html" target="_blank" rel="noopener">Terms</a> and <a href="/privacy-policy.html" target="_blank" rel="noopener">Privacy Policy</a>.</p>
+          <p class="sr-consent">By submitting, you agree to our <a href="/terms-of-service.html" target="_blank" rel="noopener">Terms of Service</a> and <a href="/privacy-policy.html" target="_blank" rel="noopener">Privacy Policy</a>. Trujillo's Cleaning Services LLC may contact you by phone or email about your request.</p>
         </div>
       </form>
     </div>
@@ -1408,8 +1415,12 @@ body.sr-open{overflow:hidden}
           </div>
         </div>
         <div class="sr-error" id="caError" role="alert"></div>
+        <label class="sr-sms-opt">
+          <input type="checkbox" id="caSmsConsent" name="smsConsent" value="Yes">
+          <span><span class="sr-optional">(Optional)</span> I agree to receive text messages from Trujillo's Cleaning Services LLC at the number above about my application. Message frequency varies. Msg &amp; data rates may apply. Reply STOP to opt out or HELP for help. Consent is not a condition of employment. We do not share mobile opt-in information with third parties for marketing purposes. See our <a href="/terms-of-service.html" target="_blank" rel="noopener">Terms of Service</a> and <a href="/privacy-policy.html" target="_blank" rel="noopener">Privacy Policy</a>.</span>
+        </label>
         <button class="btn btn-primary sr-submit" id="caSubmit" type="submit">Submit Application</button>
-        <p class="sr-consent">By submitting, you agree to be contacted by phone, text, or email about your application. See our <a href="/privacy-policy.html" target="_blank" rel="noopener">Privacy Policy</a>.</p>
+        <p class="sr-consent">By submitting, you agree to our <a href="/terms-of-service.html" target="_blank" rel="noopener">Terms of Service</a> and <a href="/privacy-policy.html" target="_blank" rel="noopener">Privacy Policy</a>. Trujillo's Cleaning Services LLC may contact you by phone or email about your application.</p>
       </form>
     </div>
 
@@ -1798,6 +1809,7 @@ const SITE_CONFIG = {
         phone: srPhone.value.trim(),
         address: srAddress.value.trim(),
         notes: srExtraNote.value.trim(),
+        smsConsent: document.getElementById("srSmsConsent").checked ? "Yes — agreed to receive texts" : "No",
         submittedAt: new Date().toISOString(),
         page: location.href
       };
@@ -2045,6 +2057,7 @@ const SITE_CONFIG = {
         fd.append("experience", caExperience.value.trim());
         fd.append("why", caWhy.value.trim());
         fd.append("notes", caNote.value.trim());
+        fd.append("smsConsent", document.getElementById("caSmsConsent").checked ? "Yes — agreed to receive texts" : "No");
         fd.append("submittedAt", new Date().toISOString());
         fd.append("page", location.href);
         fd.append("formType", "Job Application");
