@@ -614,6 +614,7 @@ a.meta-value:hover{color:var(--blue-600)}
 .sr-sms-opt{display:flex;gap:.6rem;align-items:flex-start;margin:.2rem 0 1rem;font-size:.78rem;line-height:1.5;color:var(--slate);cursor:pointer;text-align:left}
 .sr-sms-opt input{flex:none;width:17px;height:17px;margin-top:.15rem;accent-color:var(--blue-600)}
 .sr-sms-opt a{color:var(--blue-600);text-decoration:underline}
+.sr-consent--left{text-align:left;margin:0 0 1rem}
 .sr-consent{font-size:.78rem;color:var(--slate);text-align:center;margin-top:.7rem;line-height:1.5}
 .sr-consent a{color:var(--blue-600);text-decoration:underline}
 .sr-success{text-align:center;padding:1.2rem 0 .4rem}
@@ -1340,9 +1341,14 @@ body.sr-open{overflow:hidden}
           </div>
           <div class="sr-error" id="srError" role="alert"></div>
           <label class="sr-sms-opt">
-            <input type="checkbox" id="srSmsConsent" name="smsConsent" value="Yes">
-            <span><span class="sr-optional">(Optional)</span> I agree to receive text messages from Trujillo's Cleaning Services LLC at the number above about my service request, including quotes, scheduling, appointment reminders, and follow-ups. Message frequency varies. Msg &amp; data rates may apply. Reply STOP to opt out or HELP for help. Consent is not a condition of purchase. We do not share mobile opt-in information with third parties for marketing purposes. See our <a href="/terms-of-service.html" target="_blank" rel="noopener">Terms of Service</a> and <a href="/privacy-policy.html" target="_blank" rel="noopener">Privacy Policy</a>.</span>
+            <input type="checkbox" id="srSmsService" name="smsServiceConsent" value="Yes">
+            <span><span class="sr-optional">(Optional)</span> <strong>Service-Related SMS Consent:</strong> I agree to receive non-marketing text messages from Trujillo's Cleaning Services LLC regarding quotes, scheduling, appointment reminders, and service updates. Message frequency varies. Message and data rates may apply. Reply STOP to opt out or HELP for assistance.</span>
           </label>
+          <label class="sr-sms-opt">
+            <input type="checkbox" id="srSmsMarketing" name="smsMarketingConsent" value="Yes">
+            <span><span class="sr-optional">(Optional)</span> <strong>Marketing SMS Consent:</strong> I agree to receive marketing and promotional text messages from Trujillo's Cleaning Services LLC, including special offers, discounts, and promotions. Message frequency varies. Message and data rates may apply. Reply STOP to opt out or HELP for assistance.</span>
+          </label>
+          <p class="sr-consent sr-consent--left">Consent is not required to purchase services. You may select either, both, or neither. See our <a href="/terms-of-service.html" target="_blank" rel="noopener">Terms of Service</a> and <a href="/privacy-policy.html" target="_blank" rel="noopener">Privacy Policy</a>.</p>
           <button class="btn btn-primary sr-submit" id="srSubmit" type="submit">Submit Request</button>
           <p class="sr-consent">By submitting, you agree to our <a href="/terms-of-service.html" target="_blank" rel="noopener">Terms of Service</a> and <a href="/privacy-policy.html" target="_blank" rel="noopener">Privacy Policy</a>. Trujillo's Cleaning Services LLC may contact you by phone or email about your request.</p>
         </div>
@@ -1809,7 +1815,8 @@ const SITE_CONFIG = {
         phone: srPhone.value.trim(),
         address: srAddress.value.trim(),
         notes: srExtraNote.value.trim(),
-        smsConsent: document.getElementById("srSmsConsent").checked ? "Yes — agreed to receive texts" : "No",
+        smsServiceConsent: document.getElementById("srSmsService").checked ? "Yes" : "No",
+        smsMarketingConsent: document.getElementById("srSmsMarketing").checked ? "Yes" : "No",
         submittedAt: new Date().toISOString(),
         page: location.href
       };
