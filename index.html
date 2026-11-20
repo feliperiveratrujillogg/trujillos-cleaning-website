@@ -19,6 +19,21 @@
   gtag('js', new Date());
   gtag('config', 'AW-18403354651');
 </script>
+<!-- Meta Pixel — consent-gated the same way as Google above: it loads
+     but sends nothing until the visitor accepts the cookie notice. -->
+<script>
+  !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+  n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+  n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+  t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+  document,'script','https://connect.facebook.net/en_US/fbevents.js');
+  (function(){
+    var c = null; try { c = localStorage.getItem('tc_cookie_consent'); } catch (e) {}
+    fbq('consent', c === 'granted' ? 'grant' : 'revoke');
+  })();
+  fbq('init', '1354750246733750');
+  fbq('track', 'PageView');
+</script>
 <!-- ============================================================
   TRUJILLO'S CLEANING SERVICES — SINGLE-PAGE WEBSITE
   ------------------------------------------------------------
@@ -570,6 +585,9 @@ a.meta-value:hover{color:var(--blue-600)}
 .sr-close:hover{background:var(--blue-100);color:var(--navy-900)}
 .sr-modal h3{font-size:1.45rem;margin-bottom:.15rem;padding-right:2.6rem}
 .sr-sub{color:var(--slate);font-size:.95rem;margin-bottom:1.4rem}
+.sr-special{margin:-.6rem 0 1.3rem;padding:.8rem 1rem;border-radius:12px;background:#EAF3FC;border:1px solid #BCD5EE;display:flex;flex-direction:column;gap:.15rem}
+.sr-special strong{font-size:1.05rem;color:#0B3A6E}
+.sr-special span{font-size:.88rem;color:var(--slate)}
 .sr-field{margin-bottom:1.15rem}
 .sr-field>label{display:block;font-weight:600;font-size:.92rem;color:var(--navy-900);margin-bottom:.45rem}
 .sr-fieldset{border:none;padding:0;margin:0 0 1.15rem}
@@ -1190,7 +1208,7 @@ body.sr-open{overflow:hidden}
 
 <!-- ================= COOKIE NOTICE ================= -->
 <div class="cookie-banner" id="cookieBanner" hidden role="dialog" aria-live="polite" aria-label="Cookie notice">
-  <p>We use cookies to run our Google Ads tracking and understand how visitors use this site. Read our <a href="/privacy-policy.html">Privacy Policy</a>.</p>
+  <p>We use cookies to run our Google and Meta (Facebook/Instagram) ad tracking and understand how visitors use this site. Read our <a href="/privacy-policy.html">Privacy Policy</a>.</p>
   <div class="cookie-banner-actions">
     <button class="btn btn-ghost btn-sm" id="cookieDecline" type="button">Decline</button>
     <button class="btn btn-primary btn-sm" id="cookieAccept" type="button">Accept</button>
@@ -1206,7 +1224,11 @@ body.sr-open{overflow:hidden}
 
     <div id="srFormWrap">
       <h3 id="srTitle">Request Service</h3>
-      <p class="sr-sub">Tell us what you need and we'll take it from there.</p>
+      <p class="sr-sub" id="srSub">Tell us what you need and we'll take it from there.</p>
+      <div class="sr-special" id="srSpecial" hidden>
+        <strong>$215 Winter Detail Special</strong>
+        <span>Full inside and out mobile detail. We come to you.</span>
+      </div>
 
       <form id="srForm" novalidate>
         <div class="sr-field">
@@ -1654,6 +1676,7 @@ const SITE_CONFIG = {
     var srLastFocus = null;
     var srSubmitting = false;
     var srShowedSuccess = false;
+    var srSpecialActive = false;
 
     function srIsCar() { return srService.value === "Car Detailing"; }
 
@@ -1706,6 +1729,25 @@ const SITE_CONFIG = {
     document.addEventListener("keydown", function (e) {
       if (e.key === "Escape" && !srOverlay.hidden) srClose();
     });
+
+    /* Ad landing link: trujilloscleaning.com/?special=215 opens the form
+       straight away with Car Detailing picked and the $215 offer shown,
+       so people coming from the Meta ad don't have to hunt for it. */
+    (function () {
+      var sp = null;
+      try { sp = new URLSearchParams(location.search).get("special"); } catch (e) {}
+      if (sp !== "215") return;
+      srSpecialActive = true;
+      document.getElementById("srSpecial").hidden = false;
+      document.getElementById("srTitle").textContent = "Claim Your $215 Special";
+      document.getElementById("srSub").textContent = "Answer a few quick questions and we'll text you to lock in your appointment.";
+      setTimeout(function () {
+        srService.value = "Car Detailing";
+        srService.dispatchEvent(new Event("change"));
+        srOpen();
+        if (srVehicle) srVehicle.focus();
+      }, 50);
+    })();
 
     /* Dynamic fields per service */
     srService.addEventListener("change", function () {
@@ -1816,6 +1858,7 @@ const SITE_CONFIG = {
         notes: srExtraNote.value.trim(),
         smsServiceConsent: document.getElementById("srSmsService").checked ? "Yes" : "No",
         smsMarketingConsent: document.getElementById("srSmsMarketing").checked ? "Yes" : "No",
+        special: srSpecialActive ? "$215 Winter Detail Special (Meta ad)" : "",
         submittedAt: new Date().toISOString(),
         page: location.href
       };
@@ -1862,6 +1905,7 @@ const SITE_CONFIG = {
 
     function srBuildSms(data) {
       var lines = ["Service Request — " + data.service];
+      if (data.special) lines.push("Offer: " + data.special);
       if (data.service === "Car Detailing") {
         lines.push("Vehicle: " + data.vehicle);
         lines.push("Pet hair: " + data.petHair);
@@ -2148,6 +2192,7 @@ const SITE_CONFIG = {
     try { saved = localStorage.getItem(KEY); } catch (e) {}
 
     function grantConsent() {
+      if (typeof fbq === "function") fbq("consent", "grant");
       if (typeof gtag === "function") {
         gtag("consent", "update", {
           ad_storage: "granted",

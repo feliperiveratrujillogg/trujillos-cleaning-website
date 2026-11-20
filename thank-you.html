@@ -31,6 +31,23 @@
      for a URL-based "page load" conversion action pointed at /thank-you.html). */
   gtag('event', 'conversion', {'send_to': 'AW-18403354651/HYOjCOzjzekcEJvQs8dE'});
 </script>
+<!-- Meta Pixel — consent-gated the same way as Google above: it loads
+     but sends nothing until the visitor accepts the cookie notice. -->
+<script>
+  !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+  n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+  n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+  t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+  document,'script','https://connect.facebook.net/en_US/fbevents.js');
+  (function(){
+    var c = null; try { c = localStorage.getItem('tc_cookie_consent'); } catch (e) {}
+    fbq('consent', c === 'granted' ? 'grant' : 'revoke');
+  })();
+  fbq('init', '1354750246733750');
+  fbq('track', 'PageView');
+  /* Same as the Google conversion above: landing here means a request was sent. */
+  fbq('track', 'Lead');
+</script>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
