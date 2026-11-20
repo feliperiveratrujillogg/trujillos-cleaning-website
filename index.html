@@ -30,8 +30,7 @@
      By default every Get a Quote button opens the customer's text
      messaging app with a pre-typed message to your phone.
      - Change the pre-typed wording:  quote.smsMessage
-     - Interior Home Cleaning's button texts the interior line
-       automatically; every other one texts the general line.
+     - Every Get a Quote button texts the main line (912) 483-0634
 
      LATER, IF YOU GET AN ONLINE BOOKING SITE:
      Set  quote.mode: "url"  and paste the address into
@@ -112,13 +111,7 @@
       "@type": "ContactPoint",
       "telephone": "+1-912-483-0634",
       "contactType": "customer service",
-      "name": "General — Pressure Washing, Window Cleaning, Car Detailing"
-    },
-    {
-      "@type": "ContactPoint",
-      "telephone": "+1-912-604-4320",
-      "contactType": "customer service",
-      "name": "Interior Home Cleaning"
+      "name": "General — Pressure Washing, Window Cleaning, Interior Home Cleaning, Car Detailing"
     }
   ]
 }
@@ -436,6 +429,7 @@ h3{font-size:clamp(1.25rem,2vw,1.5rem);font-weight:700}
 /* ============ CONTACT ============ */
 .contact{background:var(--blue-50);border-top:1px solid var(--line)}
 .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;margin-bottom:1.2rem}
+.contact-grid--single{grid-template-columns:1fr}
 .contact-card{
   background:#fff;border:1px solid var(--line);border-radius:var(--radius);
   padding:1.9rem 1.8rem;box-shadow:var(--shadow-sm);
@@ -898,7 +892,7 @@ body.sr-open{overflow:hidden}
           </div>
         </article>
 
-        <!-- 03 · Interior Home Cleaning — uses its own dedicated phone line -->
+        <!-- 03 · Interior Home Cleaning -->
         <article class="service reveal">
           <div class="service-media">
             <!-- PHOTO SLOT: interior-cleaning -->
@@ -911,19 +905,14 @@ body.sr-open{overflow:hidden}
             <h3>Interior Home Cleaning</h3>
             <p>Thorough interior cleaning for kitchens, bathrooms, floors, and living spaces — the kind of clean you notice the moment you walk in.</p>
             <div class="service-ctas">
-              <!-- Interior Home Cleaning quotes go to the dedicated interior line -->
               <button class="btn btn-primary btn-sm js-request" type="button">
                 Request Service
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
               </button>
-              <a class="btn btn-ghost btn-sm" href="tel:+19126044320" data-phone="interior">
-                Call <span data-phone-display="interior">(912) 604-4320</span>
+              <a class="btn btn-ghost btn-sm" href="tel:+19124830634" data-phone="general">
+                Call <span data-phone-display="general">(912) 483-0634</span>
               </a>
             </div>
-            <span class="service-note">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
-              Interior Home Cleaning has its own dedicated line
-            </span>
           </div>
         </article>
 
@@ -1049,30 +1038,18 @@ body.sr-open{overflow:hidden}
       <div class="section-head reveal">
         <p class="eyebrow">Contact</p>
         <h2>Let's get you scheduled.</h2>
-        <p class="lead">Call, text, or email — whatever's easiest for you. Just note that Interior Home Cleaning has its own dedicated phone line.</p>
+        <p class="lead">Call, text, or email — whatever's easiest for you.</p>
       </div>
 
-      <div class="contact-grid">
+      <div class="contact-grid contact-grid--single">
         <div class="contact-card reveal">
           <span class="contact-tag">General line</span>
-          <h3>Pressure Washing · Windows · Car Detailing</h3>
-          <p class="for">Also the right number for general questions and anything else.</p>
+          <h3>Pressure Washing · Windows · Interior · Car Detailing</h3>
+          <p class="for">One number for every service, plus general questions and anything else.</p>
           <a class="contact-number" href="tel:+19124830634" data-phone="general"><span data-phone-display="general">(912) 483-0634</span></a>
           <a class="btn btn-primary btn-sm" href="tel:+19124830634" data-phone="general">
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
             Call Now
-          </a>
-        </div>
-
-
-        <div class="contact-card contact-card--interior reveal reveal-d1">
-          <span class="contact-tag">Dedicated line</span>
-          <h3>Interior Home Cleaning</h3>
-          <p class="for">Calling about cleaning inside your home? Use this number.</p>
-          <a class="contact-number" href="tel:+19126044320" data-phone="interior"><span data-phone-display="interior">(912) 604-4320</span></a>
-          <a class="btn btn-light btn-sm" href="tel:+19126044320" data-phone="interior">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-            Call Interior Cleaning
           </a>
         </div>
       </div>
@@ -1185,8 +1162,6 @@ body.sr-open{overflow:hidden}
         <h4>Contact</h4>
         <p>General</p>
         <a href="tel:+19124830634" data-phone="general"><span data-phone-display="general">(912) 483-0634</span></a>
-        <p>Interior Home Cleaning</p>
-        <a href="tel:+19126044320" data-phone="interior"><span data-phone-display="interior">(912) 604-4320</span></a>
         <p>Email</p>
         <a href="mailto:trujillo.services82@gmail.com" data-email>trujillo.services82@gmail.com</a>
       </div>
@@ -1499,8 +1474,8 @@ const SITE_CONFIG = {
     endpoint: "https://formspree.io/f/mljropvk"
   },
   phones: {
-    general:  { display: "(912) 483-0634", tel: "+19124830634" },   /* Everything EXCEPT Interior Home Cleaning */
-    interior: { display: "(912) 604-4320", tel: "+19126044320" }    /* Interior Home Cleaning ONLY */
+    general:  { display: "(912) 483-0634", tel: "+19124830634" },   /* All services */
+    interior: { display: "(912) 483-0634", tel: "+19124830634" }    /* Interior Home Cleaning now uses the main line too */
   },
   email: "trujillo.services82@gmail.com",
   social: {
