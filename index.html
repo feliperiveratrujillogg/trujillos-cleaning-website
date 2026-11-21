@@ -1226,7 +1226,7 @@ body.sr-open{overflow:hidden}
       <h3 id="srTitle">Request Service</h3>
       <p class="sr-sub" id="srSub">Tell us what you need and we'll take it from there.</p>
       <div class="sr-special" id="srSpecial" hidden>
-        <strong>$215 Winter Detail Special</strong>
+        <strong>$189 Winter Detail Special</strong>
         <span>Full inside and out mobile detail. We come to you.</span>
       </div>
 
@@ -1730,16 +1730,16 @@ const SITE_CONFIG = {
       if (e.key === "Escape" && !srOverlay.hidden) srClose();
     });
 
-    /* Ad landing link: trujilloscleaning.com/?special=215 opens the form
-       straight away with Car Detailing picked and the $215 offer shown,
+    /* Ad landing link: trujilloscleaning.com/?special=189 opens the form
+       straight away with Car Detailing picked and the $189 offer shown,
        so people coming from the Meta ad don't have to hunt for it. */
     (function () {
       var sp = null;
       try { sp = new URLSearchParams(location.search).get("special"); } catch (e) {}
-      if (sp !== "215") return;
+      if (sp !== "189" && sp !== "215") return;
       srSpecialActive = true;
       document.getElementById("srSpecial").hidden = false;
-      document.getElementById("srTitle").textContent = "Claim Your $215 Special";
+      document.getElementById("srTitle").textContent = "Claim Your $189 Special";
       document.getElementById("srSub").textContent = "Answer a few quick questions and we'll text you to lock in your appointment.";
       setTimeout(function () {
         srService.value = "Car Detailing";
@@ -1858,7 +1858,7 @@ const SITE_CONFIG = {
         notes: srExtraNote.value.trim(),
         smsServiceConsent: document.getElementById("srSmsService").checked ? "Yes" : "No",
         smsMarketingConsent: document.getElementById("srSmsMarketing").checked ? "Yes" : "No",
-        special: srSpecialActive ? "$215 Winter Detail Special (Meta ad)" : "",
+        special: srSpecialActive ? "$189 Winter Detail Special (Meta ad)" : "",
         submittedAt: new Date().toISOString(),
         page: location.href
       };
