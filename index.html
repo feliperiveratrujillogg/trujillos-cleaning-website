@@ -630,6 +630,9 @@ a.meta-value:hover{color:var(--blue-600)}
 .sr-error.show{display:block}
 .sr-optional{font-weight:500;color:var(--slate);text-transform:none;letter-spacing:0;font-size:.85em}
 .sr-hint{font-size:.8rem;color:var(--slate);margin-top:.45rem;line-height:1.4}
+.sr-upcharge{background:#FFF7E6;border:1px solid #F5D9A0;color:#7A4B00;border-radius:10px;padding:.65rem .85rem;font-size:.85rem;line-height:1.45;margin-top:.6rem}
+.sr-sms-remind{background:#FFF7E6;border:1px solid #F5D9A0;color:#7A4B00;border-radius:10px;padding:.8rem 1rem;font-size:.9rem;line-height:1.5;margin-bottom:1rem}
+.sr-sms-opt.remind{background:#FFF7E6;outline:2px solid #F0B44C;border-radius:8px;padding:.5rem}
 .sr-textarea{min-height:84px;resize:vertical;font-family:inherit}
 .sr-input[type="file"]{padding:.55rem .7rem;cursor:pointer}
 .sr-input[type="file"]::file-selector-button{
@@ -1254,6 +1257,7 @@ body.sr-open{overflow:hidden}
               <label class="sr-chip"><input type="radio" name="petHair" value="Yes"><span>Yes</span></label>
               <label class="sr-chip"><input type="radio" name="petHair" value="No"><span>No</span></label>
             </div>
+            <p class="sr-upcharge" id="srPetUpcharge" hidden>Heads up: pet hair removal is an <strong>extra charge</strong><span class="js-special-note"></span>. We'll give you the exact price when we text you.</p>
           </fieldset>
           <fieldset class="sr-fieldset" id="srStainsSet">
             <legend>Does your vehicle have stains that need attention?</legend>
@@ -1263,7 +1267,7 @@ body.sr-open{overflow:hidden}
             </div>
           </fieldset>
           <fieldset class="sr-fieldset">
-            <legend>Are you interested in any additional services?</legend>
+            <legend>Are you interested in any additional services? <span class="sr-optional">(extra charge)</span></legend>
             <div class="sr-choices">
               <label class="sr-chip"><input type="checkbox" name="addons" value="Seat Shampooing"><span>Seat Shampooing</span></label>
               <label class="sr-chip"><input type="checkbox" name="addons" value="Carpet Shampooing"><span>Carpet Shampooing</span></label>
@@ -1271,6 +1275,7 @@ body.sr-open{overflow:hidden}
               <label class="sr-chip"><input type="checkbox" name="addons" value="Headlight Restoration"><span>Headlight Restoration</span></label>
               <label class="sr-chip"><input type="checkbox" name="addons" value="None"><span>None</span></label>
             </div>
+            <p class="sr-upcharge" id="srAddonUpcharge" hidden>Heads up: add-ons like seat shampooing are an <strong>extra charge</strong><span class="js-special-note" data-plural="1"></span>. We'll give you the exact price when we text you.</p>
           </fieldset>
         </div>
 
@@ -1355,7 +1360,8 @@ body.sr-open{overflow:hidden}
             <input class="sr-input" id="srAddress" name="address" type="text" autocomplete="street-address" required>
           </div>
           <div class="sr-error" id="srError" role="alert"></div>
-          <label class="sr-sms-opt">
+          <div class="sr-sms-remind" id="srSmsRemind" role="alert" hidden><strong>Want us to text you?</strong> We confirm appointments by text. Check the Service-Related SMS box below so we can reach you, then tap Submit. Prefer a call instead? Just tap Submit again.</div>
+          <label class="sr-sms-opt" id="srSmsServiceLabel">
             <input type="checkbox" id="srSmsService" name="smsServiceConsent" value="Yes">
             <span><span class="sr-optional">(Optional)</span> <strong>Service-Related SMS Consent:</strong> I agree to receive non-marketing text messages from Trujillo's Cleaning Services LLC regarding quotes, scheduling, appointment reminders, and service updates. Message frequency varies. Message and data rates may apply. Reply STOP to opt out or HELP for assistance.</span>
           </label>
@@ -1701,6 +1707,9 @@ const SITE_CONFIG = {
       srSuccess.hidden = true;
       srFormWrap.hidden = false;
       srShowedSuccess = false;
+      srSmsReminded = false;
+      if (srSmsRemind) { srSmsRemind.hidden = true; srSmsServiceLabel.classList.remove("remind"); }
+      if (srPetUpcharge) { srPetUpcharge.hidden = true; srAddonUpcharge.hidden = true; }
     }
 
     function srOpen() {
@@ -1797,6 +1806,30 @@ const SITE_CONFIG = {
           srNone.checked = false;
         }
       });
+    });
+    /* Upcharge notes: pet hair removal and add-ons are extra, not part of the special */
+    var srPetUpcharge = document.getElementById("srPetUpcharge");
+    var srAddonUpcharge = document.getElementById("srAddonUpcharge");
+    function srUpdateUpcharge() {
+      srForm.querySelectorAll(".js-special-note").forEach(function (s) {
+        var v = s.getAttribute("data-plural") ? "aren't" : "isn't";
+        s.textContent = " and " + v + (srSpecialActive ? " included in the $189 special" : " included in the standard detail price");
+      });
+      srPetUpcharge.hidden = srRadioValue("petHair") !== "Yes";
+      srAddonUpcharge.hidden = !srAddons.some(function (c) { return c.checked && c !== srNone; });
+    }
+    srForm.querySelectorAll('input[name="petHair"],input[name="addons"]').forEach(function (i) {
+      i.addEventListener("change", srUpdateUpcharge);
+    });
+    srService.addEventListener("change", srUpdateUpcharge);
+
+    /* Gentle SMS reminder: consent stays optional, but nudge once before submitting without it */
+    var srSmsService = document.getElementById("srSmsService");
+    var srSmsRemind = document.getElementById("srSmsRemind");
+    var srSmsServiceLabel = document.getElementById("srSmsServiceLabel");
+    var srSmsReminded = false;
+    srSmsService.addEventListener("change", function () {
+      if (srSmsService.checked) { srSmsRemind.hidden = true; srSmsServiceLabel.classList.remove("remind"); }
     });
     var srPressureAreas = Array.prototype.slice.call(srForm.querySelectorAll('input[name="pressureAreas"]'));
 
@@ -1936,6 +1969,13 @@ const SITE_CONFIG = {
       e.preventDefault();
       if (srSubmitting) return;
       if (!srValidate()) return;
+      if (!srSmsService.checked && !srSmsReminded) {
+        srSmsReminded = true;
+        srSmsRemind.hidden = false;
+        srSmsServiceLabel.classList.add("remind");
+        srSmsRemind.scrollIntoView({ behavior: "smooth", block: "center" });
+        return;
+      }
       var data = srCollect();
       var endpoint = (SITE_CONFIG.serviceRequest || {}).endpoint;
       var hasPhoto = !!(srPhoto.files && srPhoto.files[0]);
